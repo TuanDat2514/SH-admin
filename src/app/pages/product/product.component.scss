@@ -1,0 +1,13 @@
+.save {
+  margin-right: 8px;
+}
+.td-description{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.btn-action{
+  display: flex;
+  justify-content: right;
+  gap: 1.5rem;
+}
