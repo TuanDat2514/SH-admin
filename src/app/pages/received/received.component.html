@@ -34,7 +34,8 @@
     </tbody>
   </nz-table>
 </div>
-<nz-modal
+<app-detail-received [visible]="isVisible" (closeDrawer)="handleCancel($event)" [cartIdSelected]="cartIdSelected"></app-detail-received>
+<!--<nz-modal
   [(nzVisible)]="isVisible"
   nzTitle="Thông báo"
   (nzOnCancel)="handleCancel()"
@@ -42,4 +43,4 @@
   [nzOkLoading]="isOkLoading"
 >
   <p *nzModalContent>{{itemSelected.status === 0 ? "Bạn chắc chắn xác nhận đơn hàng này?":"Bạn chắc chắn hủy đơn hàng này?"}}</p>
-</nz-modal>
+</nz-modal>-->

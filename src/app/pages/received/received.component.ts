@@ -61,6 +61,7 @@ export class ReceivedComponent implements OnInit {
   totalItem = this.listOfData.length;
   pageSize = 10;
   itemSelected!:Received;
+  cartIdSelected:number = 0;
   isLoading!:boolean;
   handleOk(): void {
     this.isOkLoading = true;
@@ -75,16 +76,17 @@ export class ReceivedComponent implements OnInit {
     })
   }
 
-  handleCancel(): void {
-    this.isVisible = false;
+  handleCancel(event:any): void {
+    this.isVisible = event;
   }
 
   constructor(private receivedService:ReceivedService) {
   }
 
   handleClickRecord(record: Received) {
-    this.isVisible = !this.isVisible;
+    this.isVisible = true;
     this.itemSelected = record;
+    this.cartIdSelected = record.id_cart;
   }
   displayData(){
     this.receivedService.getListRecevied().subscribe(res =>{

@@ -27,6 +27,7 @@ import { LoadingComponent } from "./loading/loading.component";
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzInputModule } from "ng-zorro-antd/input";
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { DetailReceivedComponent } from "./pages/received/detail-received/detail-received.component";
 registerLocaleData(en);
 
 @NgModule({
@@ -35,7 +36,8 @@ registerLocaleData(en);
     ReceivedComponent,
     ProductComponent,
     SaleComponent,
-    LoadingComponent
+    LoadingComponent,
+    DetailReceivedComponent
   ],
   imports: [
     BrowserModule,
