@@ -20,3 +20,25 @@ export interface Product{
   sub_img:string
   stock:any
 }
+export interface Detail{
+  id: number,
+  cart_id: number,
+  consignee: string,
+  consignee_phone: string,
+  delivery_address: string,
+  delivery_method: string,
+  payment_method: string,
+  detailCart: ItemCart[]
+}
+export interface ItemCart{
+  id: number,
+  id_product: string,
+  cart_id: number,
+  img: string,
+  size: number,
+  quantity: number,
+  price_prod: number,
+  total_prod: number,
+  color: string,
+  name: string
+}

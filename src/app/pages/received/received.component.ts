@@ -50,7 +50,7 @@ export class ReceivedComponent implements OnInit {
     },
     {
       title: 'Status',
-      compare: (a: DataItem, b: DataItem) => a.status - b.status,
+      compare: (a: Received, b: Received) => a.status - b.status,
       priority: 1
     },
   ];
@@ -61,21 +61,18 @@ export class ReceivedComponent implements OnInit {
   totalItem = this.listOfData.length;
   pageSize = 10;
   itemSelected!:Received;
-  cartIdSelected:number = 0;
   isLoading!:boolean;
+  inputValue:any;
   handleOk(): void {
     this.isOkLoading = true;
-    this.receivedService.updateRecevied(this.itemSelected.id_cart,{
-      ...this.itemSelected,status:this.itemSelected.status === 0 ? 1 : 0
-    }).subscribe(res =>{
-      if(res.status === 200){
-        this.isOkLoading = false;
-        this.isVisible = !this.isVisible;
-        this.displayData();
-      }
+
+  }
+  handleSearch(){
+    this.receivedService.getReceviedbyId(this.inputValue).subscribe(res=>{
+      this.listOfData = [];
+      this.listOfData.push(res);
     })
   }
-
   handleCancel(event:any): void {
     this.isVisible = event;
   }
@@ -86,7 +83,6 @@ export class ReceivedComponent implements OnInit {
   handleClickRecord(record: Received) {
     this.isVisible = true;
     this.itemSelected = record;
-    this.cartIdSelected = record.id_cart;
   }
   displayData(){
     this.receivedService.getListRecevied().subscribe(res =>{

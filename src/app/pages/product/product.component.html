@@ -41,6 +41,7 @@
       <td nzAlign="center">{{ data.price  * 1000| currency:'VND':' ':'1.'}}</td>
       <td nzAlign="center">
         <button nz-button nzType="primary" (click)="startEdit(data.id_product)" nzShape="circle"><span nz-icon nzType="edit"></span></button>
+        <button nz-button nzType="primary" nzShape="circle" nzDanger><span nz-icon nzType="delete"></span></button>
       </td>
     </ng-container>
     <ng-template #editTemplate>

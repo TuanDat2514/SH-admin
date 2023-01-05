@@ -1,4 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output,OnChanges,OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, OnDestroy, ViewChild } from '@angular/core';
+import { ReceivedService } from "../../../_sevices/received/received.service";
+import { Detail, Received } from "../../../../assets/interface/interface";
+import { ReceivedComponent } from "../received.component";
 
 @Component({
   selector: 'app-detail-received',
@@ -7,14 +10,30 @@ import { Component, EventEmitter, Input, OnInit, Output,OnChanges,OnDestroy } fr
 })
 export class DetailReceivedComponent implements OnInit,OnChanges {
   @Input() visible = false;
-  @Input() cartIdSelected : number = 0;
+  @Input() cartSelected! : Received;
   @Output() closeDrawer = new EventEmitter<boolean>();
-  constructor() { }
+  @Output() refreshData = new EventEmitter();
+  detail!:Detail;
+  isVisible = false;
+  isOkLoading = false;
+  isLoading!:boolean;
+  constructor(private receivedService: ReceivedService) { }
 
   ngOnChanges() {
-    this.visible && console.log(this.cartIdSelected);
+    this.visible && this.receivedService.getDetail(this.cartSelected?.id_cart).subscribe((res:Detail) =>{
+      this.detail=res;
+    });
+  }
+  handleOk(): void {
+    this.isOkLoading = true;
   }
 
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+  openModal(){
+    this.isVisible = true;
+  }
   open(): void {
     this.visible = true;
   }
@@ -25,5 +44,16 @@ export class DetailReceivedComponent implements OnInit,OnChanges {
   }
   ngOnInit(): void {
   }
-
+  handleSubmit(){
+    this.isOkLoading = true;
+    this.receivedService.updateRecevied(this.cartSelected.id_cart,{
+      ...this.cartSelected,status:this.cartSelected.status === 0 ? 1 : 0
+    }).subscribe(res =>{
+      if(res.status === 200){
+        this.isOkLoading = false;
+        this.isVisible = !this.isVisible;
+        this.refreshData.emit();
+      }
+    })
+  }
 }
