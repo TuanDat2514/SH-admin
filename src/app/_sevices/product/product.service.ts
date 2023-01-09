@@ -17,6 +17,6 @@ export class ProductService {
     return this.http.put(`${URL_ROOT}/${PARAM.UPDATE_PRODUCT}`,body,{observe:"response"});
   }
   getProductbyId(id_product:string){
-    return this.http.get(`${URL_ROOT}/${PARAM.GET_PRODUCT_BY_ID}/${id_product}`);
+    return this.http.get<Product>(`${URL_ROOT}/${PARAM.GET_PRODUCT_BY_ID}/${id_product}`);
   }
 }

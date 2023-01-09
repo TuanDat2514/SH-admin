@@ -8,14 +8,27 @@
   [nzFooter]="footer"
 >
   <ng-container *nzDrawerContent>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
+    <div class="table-size">
+      <div class="size-man">
+        <div class="th">Size Nam</div>
+        <div class="list-size"*ngFor="let data of product?.sizeMan">
+          <p>{{data.size}}</p>
+<!--          <p>x{{data.amount}}</p>-->
+        </div>
+      </div>
+      <div class="size-woman">
+        <div class="th">Size Nữ</div>
+        <div class="list-size" *ngFor="let data of sizeWoman">
+          <p>{{data.size}}</p>
+          <p>x{{data.amount}}</p>
+        </div>
+      </div>
+    </div>
   </ng-container>
 </nz-drawer>
 <ng-template #header>
-  <p>Tồn kho</p>
+  <h1>Tồn kho</h1>
 </ng-template>
 <ng-template #footer>
-  <p>Footer</p>
+  <button class="btn-submit">Nhập hàng</button>
 </ng-template>

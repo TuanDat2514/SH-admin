@@ -1,0 +1,22 @@
+.row{
+  margin-top: 1rem;
+  input{
+    margin-top: .5rem;
+  }
+  .radio{
+    //padding-left: 1rem;
+    text-align: center;
+  }
+  .input-radio{
+    width: fit-content;
+    margin-right: 2rem;
+    margin-left: .5rem;
+  }
+}
+.btn-add{
+  height: max-content;
+  position: fixed;
+  width: 452px;
+  bottom: 24px;
+}
+

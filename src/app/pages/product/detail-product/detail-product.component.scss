@@ -1,0 +1,20 @@
+.table-size {
+  display: flex;
+  justify-content: space-around;
+
+  .size {
+    &-man {
+      text-align: center;
+      width: 100px;
+    }
+
+    &-woman {
+      text-align: center;
+      width: 100px;
+      .list-size {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}

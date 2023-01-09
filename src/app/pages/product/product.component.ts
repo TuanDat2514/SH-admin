@@ -3,6 +3,8 @@ import { Product } from "../../../assets/interface/interface";
 import { ProductService } from "../../_sevices/product/product.service";
 import { ref, uploadBytesResumable, getDownloadURL, getStorage } from "firebase/storage";
 import { storage } from "../../../firebase/firebaseConfig";
+import { NzMessageService } from "ng-zorro-antd/message";
+import { concatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product',
@@ -11,7 +13,7 @@ import { storage } from "../../../firebase/firebaseConfig";
 })
 export class ProductComponent implements OnInit {
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService,private message: NzMessageService) {
   }
 
   editCache: { [key: string]: { edit: boolean; data: Product } } = {};
@@ -19,12 +21,28 @@ export class ProductComponent implements OnInit {
   list!: Product[];
   pageSize = 5;
   totalItem!: number;
-  file: any = {};
   itemSelected!: Product;
+  file: any = {};
   imgNew!: string | null;
   descriptionNew!:string;
   openDrawerDetail!:boolean;
   productSelected:any;
+  openDrawerAddProduct:boolean = false;
+  isUploading:boolean = false;
+  progress!:number;
+  createMessage(type: string): void {
+    switch (type){
+      case 'success':
+        this.message.create(type, `Cập nhật thành công`);
+        break
+      case 'progress':
+        this.message.create('success', `Tải ảnh lên thành công`);
+        break
+      default:
+        this.message.create(type, `Cập nhật thành công`);
+    }
+  }
+
   chooseFile(event: any) {
     if (event.target.files.length > 0) {
       this.file = event.target.files[0];
@@ -39,6 +57,11 @@ export class ProductComponent implements OnInit {
       (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log('Upload is ' + progress + '% done');
+        this.progress = progress;
+        this.isUploading = true;
+        if(this.progress === 100){
+          this.createMessage('progress')
+        }
       },
       (error) => {
         switch (error.code) {
@@ -59,6 +82,7 @@ export class ProductComponent implements OnInit {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log('File available at', downloadURL);
           this.imgNew = downloadURL;
+          this.isUploading = false;
         });
       }
     );
@@ -95,6 +119,7 @@ export class ProductComponent implements OnInit {
           this.editCache[id].edit = false;
           this.displayData();
           this.imgNew = null;
+          this.createMessage('success');
         }
     })
     console.log(body);
@@ -144,5 +169,12 @@ export class ProductComponent implements OnInit {
 
   closeDrawer($event: boolean) {
     this.openDrawerDetail = $event;
+  }
+
+  openDrawerAddProd(){
+    this.openDrawerAddProduct = true;
+  }
+  closeDrawerAddProd(){
+    this.openDrawerAddProduct = false;
   }
 }

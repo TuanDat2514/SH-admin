@@ -1,6 +1,6 @@
 <h1>Danh sách sản phẩm</h1>
 <div class="btn-action">
-  <button nz-button nzType="primary" routerLink="/add-product">
+  <button nz-button nzType="primary" (click)="openDrawerAddProd()">
     <span nz-icon nzType="plus" nzTheme="outline"></span>
     Thêm sản phẩm
   </button>
@@ -20,14 +20,14 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let data of editRowTable.data" (click)="handleRecord(data)" >
+  <tr *ngFor="let data of editRowTable.data">
     <ng-container *ngIf="!editCache[data.id_product].edit; else editTemplate">
       <td nzAlign="center">
         <img [src]="data.img" alt="" style="width: 80px;height: 111px;object-fit: contain;">
       </td>
-      <td nzAlign="center">{{ data.id_product }}</td>
-      <td nzAlign="center">{{ data.name }}</td>
-      <td nzAlign="center">{{ data.color }}</td>
+      <td nzAlign="center" (click)="handleRecord(data)" >{{ data.id_product }}</td>
+      <td nzAlign="center" (click)="handleRecord(data)" >{{ data.name }}</td>
+      <td nzAlign="center" (click)="handleRecord(data)" >{{ data.color }}</td>
       <td nzAlign="center">
         <nz-tag [nzColor]="'pink'" *ngIf="data.gender === 0">Nữ</nz-tag>
         <nz-tag [nzColor]="'cyan'" *ngIf="data.gender === 1">Nam</nz-tag>
@@ -54,7 +54,7 @@
       <td nzAlign="center"><input type="text" nz-input [(ngModel)]="editCache[data.id_product].data.trending" /></td>
       <td nzAlign="center"><input type="text" nz-input [(ngModel)]="editCache[data.id_product].data.price" /></td>
       <td nzAlign="center" class="action">
-        <a (click)="saveEdit(data.id_product)" class="save" nz-button  nzShape="circle" nzType="primary"><span nz-icon nzType="check"></span></a >
+        <a (click)="saveEdit(data.id_product)" class="save" nz-button  nzShape="circle" nzType="primary" [disabled]="isUploading"><span nz-icon nzType="check"></span></a >
         <a nz-popconfirm nzPopconfirmTitle="Sure to cancel?" (nzOnConfirm)="cancelEdit(data.id_product)" nzShape="circle" nz-button nzType="primary" nzDanger><span nz-icon nzType="close"></span></a>
       </td>
     </ng-template>
@@ -62,3 +62,15 @@
   </tbody>
 </nz-table>
 <app-detail-product [visible]="openDrawerDetail" (closeDrawer)="closeDrawer($event)" [productSelected]="productSelected"></app-detail-product>
+<nz-drawer
+  [nzClosable]="false"
+  [nzVisible]="openDrawerAddProduct"
+  nzPlacement="right"
+  nzTitle="Thêm sản phẩm"
+  (nzOnClose)="closeDrawerAddProd()"
+  nzWidth="500px"
+>
+  <ng-container *nzDrawerContent>
+    <app-add-product></app-add-product>
+  </ng-container>
+</nz-drawer>
