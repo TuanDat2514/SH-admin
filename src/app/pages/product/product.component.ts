@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from "../../../assets/interface/interface";
 import { ProductService } from "../../_sevices/product/product.service";
+import { ref, uploadBytesResumable, getDownloadURL, getStorage } from "firebase/storage";
+import { storage } from "../../../firebase/firebaseConfig";
 
 @Component({
   selector: 'app-product',
@@ -9,14 +11,63 @@ import { ProductService } from "../../_sevices/product/product.service";
 })
 export class ProductComponent implements OnInit {
 
-  constructor(private productService:ProductService) { }
+  constructor(private productService: ProductService) {
+  }
+
   editCache: { [key: string]: { edit: boolean; data: Product } } = {};
   listOfData: Product[] = [];
-  list!:Product[];
-  pageSize=5;
-  totalItem!:number;
-  startEdit(id: string): void {
+  list!: Product[];
+  pageSize = 5;
+  totalItem!: number;
+  file: any = {};
+  itemSelected!: Product;
+  imgNew!: string | null;
+  descriptionNew!:string;
+  openDrawerDetail!:boolean;
+  productSelected:any;
+  chooseFile(event: any) {
+    if (event.target.files.length > 0) {
+      this.file = event.target.files[0];
+      this.addImageToFirebase();
+    }
+  }
+
+  addImageToFirebase() {
+    const storageRef = ref(storage, 'images/' + this.file.name);
+    const uploadTask = uploadBytesResumable(storageRef, this.file);
+    uploadTask.on('state_changed',
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log('Upload is ' + progress + '% done');
+      },
+      (error) => {
+        switch (error.code) {
+          case 'storage/unauthorized':
+            // User doesn't have permission to access the object
+            break;
+          case 'storage/canceled':
+            // User canceled the upload
+            break;
+          // ...
+          case 'storage/unknown':
+            // Unknown error occurred, inspect error.serverResponse
+            break;
+        }
+      },
+      () => {
+        // Upload completed successfully, now we can get the download URL
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log('File available at', downloadURL);
+          this.imgNew = downloadURL;
+        });
+      }
+    );
+  }
+
+  startEdit(id: string, product: Product): void {
     this.editCache[id].edit = true;
+    this.itemSelected = product;
+
   }
 
   cancelEdit(id: string): void {
@@ -30,7 +81,23 @@ export class ProductComponent implements OnInit {
   saveEdit(id: string): void {
     const index = this.listOfData.findIndex(item => item.id_product === id);
     Object.assign(this.listOfData[index], this.editCache[id].data);
-    this.editCache[id].edit = false;
+    const body:any = {
+      color: this.editCache[id].data.color,
+      description: this.editCache[id].data.description,
+      gender: this.editCache[id].data.gender,
+      id_product: this.editCache[id].data.id_product,
+      img: this.imgNew || null,
+      name: this.editCache[id].data.name,
+      price: this.editCache[id].data.price,
+    }
+    this.productService.updateProduct(body).subscribe(res=>{
+        if(res.status === 200){
+          this.editCache[id].edit = false;
+          this.displayData();
+          this.imgNew = null;
+        }
+    })
+    console.log(body);
   }
 
   updateEditCache(): void {
@@ -42,28 +109,40 @@ export class ProductComponent implements OnInit {
     });
   }
 
-
-  ngOnInit(): void {
-    this.productService.getAllProduct().subscribe(res =>{
+  displayData(){
+    this.productService.getAllProduct().subscribe(res => {
       this.totalItem = res.length;
-      const data:any = [];
+      const data: any = [];
       for (let i = 0; i < res.length; i++) {
         data.push({
-          id_product:res[i].id_product,
-          name:res[i].name,
-          color:res[i].color,
-          price:res[i].price,
-          description:res[i].description,
-          trending:res[i].trending,
-          gender:res[i].gender,
-          img:res[i].img,
-          sub_img:res[i].sub_img,
-          stock:res[i].stock
+          id_product: res[i].id_product,
+          name: res[i].name,
+          color: res[i].color,
+          price: res[i].price,
+          description: res[i].description,
+          trending: res[i].trending,
+          gender: res[i].gender,
+          img: res[i].img,
+          sub_img: res[i].sub_img,
+          stock: res[i].stock,
         });
       }
       this.listOfData = data;
+      console.log(this.listOfData);
       this.updateEditCache();
     });
   }
 
+  ngOnInit(): void {
+    this.displayData();
+  }
+
+  handleRecord(item : any) {
+    this.openDrawerDetail = true;
+    this.productSelected = item;
+  }
+
+  closeDrawer($event: boolean) {
+    this.openDrawerDetail = $event;
+  }
 }

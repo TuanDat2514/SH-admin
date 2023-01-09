@@ -1,7 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges, OnDestroy, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { ReceivedService } from "../../../_sevices/received/received.service";
 import { Detail, Received } from "../../../../assets/interface/interface";
-import { ReceivedComponent } from "../received.component";
 
 @Component({
   selector: 'app-detail-received',

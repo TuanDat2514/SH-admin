@@ -18,8 +18,17 @@ export interface Product{
   gender:number,
   img:string,
   sub_img:string
-  stock:any
+  stock:any,
+  sizeMan:Size[],
+  sizeWoman:Size[]
 }
+export interface Size{
+  id_size: number,
+  id_brand: string,
+  gender: number,
+  size: number
+}
+
 export interface Detail{
   id: number,
   cart_id: number,

@@ -13,4 +13,10 @@ export class ProductService {
   getAllProduct(){
     return this.http.get<Array<Product>>(`${URL_ROOT}/${PARAM.GET_ALL_PRODUCT}`);
   }
+  updateProduct(body:Product){
+    return this.http.put(`${URL_ROOT}/${PARAM.UPDATE_PRODUCT}`,body,{observe:"response"});
+  }
+  getProductbyId(id_product:string){
+    return this.http.get(`${URL_ROOT}/${PARAM.GET_PRODUCT_BY_ID}/${id_product}`);
+  }
 }

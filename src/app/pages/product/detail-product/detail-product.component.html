@@ -1,0 +1,21 @@
+<nz-drawer
+  [nzClosable]="false"
+  [nzVisible]="visible"
+  nzPlacement="right"
+  [nzTitle]="header"
+  (nzOnClose)="close()"
+  nzWidth="600px"
+  [nzFooter]="footer"
+>
+  <ng-container *nzDrawerContent>
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+  </ng-container>
+</nz-drawer>
+<ng-template #header>
+  <p>Tồn kho</p>
+</ng-template>
+<ng-template #footer>
+  <p>Footer</p>
+</ng-template>

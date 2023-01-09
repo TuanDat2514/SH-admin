@@ -4,6 +4,7 @@ import { ProductComponent } from "./pages/product/product.component";
 import { ReceivedComponent } from "./pages/received/received.component";
 import { SaleComponent } from "./pages/sale/sale.component";
 import { StatisticalComponent } from "./pages/statistical/statistical.component";
+import { AddProductComponent } from "./pages/product/add-product/add-product.component";
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/received' },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'received', component:ReceivedComponent },
   { path: 'sale', component:SaleComponent },
   { path: 'statistical', component:StatisticalComponent },
+  { path: 'add-product', component:AddProductComponent },
 ];
 
 @NgModule({

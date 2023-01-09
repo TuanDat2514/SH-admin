@@ -13,5 +13,7 @@ export const PARAM = {
   GET_RECEIVED_BY_ID:"cart/getCart",
   //product
   GET_ALL_PRODUCT:"product/all",
+  UPDATE_PRODUCT:"product/update",
+  GET_PRODUCT_BY_ID:"product/getProdbyId"
 }
 
