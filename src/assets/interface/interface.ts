@@ -10,6 +10,7 @@ export interface Received{
 
 export interface Product{
   id_product:string,
+  id_brand:string,
   name:string,
   color:string,
   price:number,
@@ -18,7 +19,7 @@ export interface Product{
   gender:number,
   img:string,
   sub_img:string
-  stock:any,
+  stock?:any,
   sizeMan:Size[],
   sizeWoman:Size[]
 }

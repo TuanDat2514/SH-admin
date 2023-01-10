@@ -1,4 +1,4 @@
-<form [formGroup]="newForm">
+<form [formGroup]="newForm" (ngSubmit)="ngSubmit()">
   <div class="row">
     <label for="img">Hình ảnh</label>
     <input type="file" id="img" alt="" (change)="chooseFile($event)" nz-input />
@@ -10,6 +10,12 @@
   <div class="row">
     <label for="name">Tên sản phẩm</label>
     <input type="text" id="name" nz-input formControlName="name">
+  </div>
+  <div class="row">
+    <p >Nhãn hiệu</p>
+    <nz-select nzAllowClear nzPlaceHolder="Chọn nhãn hiệu" formControlName="id_brand">
+      <nz-option *ngFor="let data of optionBrand" [nzValue]="data.value" [nzLabel]="data.label"></nz-option>
+    </nz-select>
   </div>
   <div class="row">
     <p>Màu</p>
@@ -52,6 +58,6 @@
 
   </div>
   <div class="btn-add">
-  <button class="btn-submit" (click)="abc()">Thêm</button>
+  <button class="btn-submit" type="submit">Thêm</button>
   </div>
 </form>

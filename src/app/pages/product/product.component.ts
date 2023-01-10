@@ -5,6 +5,7 @@ import { ref, uploadBytesResumable, getDownloadURL, getStorage } from "firebase/
 import { storage } from "../../../firebase/firebaseConfig";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { concatMap } from 'rxjs/operators';
+import { createMessage } from "../../../environments/helper";
 
 @Component({
   selector: 'app-product',
@@ -30,18 +31,6 @@ export class ProductComponent implements OnInit {
   openDrawerAddProduct:boolean = false;
   isUploading:boolean = false;
   progress!:number;
-  createMessage(type: string): void {
-    switch (type){
-      case 'success':
-        this.message.create(type, `Cập nhật thành công`);
-        break
-      case 'progress':
-        this.message.create('success', `Tải ảnh lên thành công`);
-        break
-      default:
-        this.message.create(type, `Cập nhật thành công`);
-    }
-  }
 
   chooseFile(event: any) {
     if (event.target.files.length > 0) {
@@ -59,9 +48,6 @@ export class ProductComponent implements OnInit {
         console.log('Upload is ' + progress + '% done');
         this.progress = progress;
         this.isUploading = true;
-        if(this.progress === 100){
-          this.createMessage('progress')
-        }
       },
       (error) => {
         switch (error.code) {
@@ -83,9 +69,19 @@ export class ProductComponent implements OnInit {
           console.log('File available at', downloadURL);
           this.imgNew = downloadURL;
           this.isUploading = false;
+          createMessage(this.message,'success','Tải ảnh');
         });
       }
     );
+  }
+
+  deleteProduct(id_product:string){
+    this.productService.deleteProduct(id_product).subscribe(res=>{
+      if(res.status === 200){
+        createMessage(this.message,'success','Xóa');
+        this.displayData();
+      }
+    })
   }
 
   startEdit(id: string, product: Product): void {
@@ -119,7 +115,7 @@ export class ProductComponent implements OnInit {
           this.editCache[id].edit = false;
           this.displayData();
           this.imgNew = null;
-          this.createMessage('success');
+          createMessage(this.message,'success','Cập nhật');
         }
     })
     console.log(body);
@@ -174,6 +170,7 @@ export class ProductComponent implements OnInit {
   openDrawerAddProd(){
     this.openDrawerAddProduct = true;
   }
+
   closeDrawerAddProd(){
     this.openDrawerAddProduct = false;
   }

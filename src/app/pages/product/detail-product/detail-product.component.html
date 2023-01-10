@@ -11,9 +11,9 @@
     <div class="table-size">
       <div class="size-man">
         <div class="th">Size Nam</div>
-        <div class="list-size"*ngFor="let data of product?.sizeMan">
+        <div class="list-size" *ngFor="let data of sizeMan">
           <p>{{data.size}}</p>
-<!--          <p>x{{data.amount}}</p>-->
+          <p>x{{data.amount}}</p>
         </div>
       </div>
       <div class="size-woman">
@@ -32,3 +32,4 @@
 <ng-template #footer>
   <button class="btn-submit">Nhập hàng</button>
 </ng-template>
+

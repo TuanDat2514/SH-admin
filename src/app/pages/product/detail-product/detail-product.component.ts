@@ -14,7 +14,8 @@ export class DetailProductComponent implements OnInit, OnChanges {
   product!: Product;
   sizeMan: any = [];
   sizeWoman: any[] = [];
-
+  a:any;
+  stockProduct:any[] = [];
   constructor(private productService: ProductService) {
   }
 
@@ -34,7 +35,7 @@ export class DetailProductComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     this.visible && this.productService.getProductbyId(this.productSelected.id_product).subscribe(res => {
         this.product = res;
-        for (let i = 0; i < this.product.sizeWoman.length; i++) {
+        /*for (let i = 0; i < this.product.sizeWoman.length; i++) {
           for (let j = 0; j < this.product.stock.length; j++) {
             if (this.product.stock[j].id_size === this.product.sizeWoman[i].id_size) {
               this.sizeWoman.push({
@@ -53,13 +54,34 @@ export class DetailProductComponent implements OnInit, OnChanges {
               });
             }
           }
-        }
-        console.log(this.sizeMan);
-        console.log(this.product);
+        }*/
+        this.productService.getStockProduct(res.id_product,res.id_brand).subscribe(res =>{
+          this.a = res.body
+          console.log(this.a);
+          for (let i  = 0 ; i < this.a.length ; i++){
+            if(this.a[i][1] === 0){
+              this.sizeWoman.push({
+                size: this.a[i][0],
+                gender: this.a[i][1],
+                amount:this.a[i][2]
+              })
+            }
+            if(this.a[i][1] === 1){
+              this.sizeMan.push({
+                size: this.a[i][0],
+                gender: this.a[i][1],
+                amount:this.a[i][2]
+              })
+            }
+          }
+        })
       }
     )
     if (!this.visible) {
       this.sizeWoman = [];
+    }
+    if (!this.visible) {
+      this.sizeMan = [];
     }
   }
 

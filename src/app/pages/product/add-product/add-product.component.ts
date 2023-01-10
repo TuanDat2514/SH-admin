@@ -3,6 +3,9 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../../../firebase/firebaseConfig";
 import { FormBuilder } from "@angular/forms";
+import { optionBrand } from "../../../../environments/constant";
+import { ProductService } from "../../../_sevices/product/product.service";
+import { createMessage, genRandonString } from "../../../../environments/helper";
 
 @Component({
   selector: 'app-add-product',
@@ -26,7 +29,9 @@ export class AddProductComponent implements OnInit {
     img:[''],
     sub_img:[''],
   });
-  constructor(private msg: NzMessageService, private fb: FormBuilder) { }
+  optionBrand = optionBrand;
+  id_brand?:string
+  constructor(private msg: NzMessageService, private fb: FormBuilder,private productService:ProductService) { }
 
   ngOnInit(): void {
   }
@@ -71,8 +76,14 @@ export class AddProductComponent implements OnInit {
     );
   }
 
-  abc() {
+  ngSubmit() {
     this.newForm.value.img = this.imgNew;
     console.log(this.newForm);
+    this.newForm.value.id_product = genRandonString(4);
+    this.productService.addProduct(this.newForm.value).subscribe(res=>{
+      if(res.status === 200){
+        createMessage(this.msg,'success','Thêm mới');
+      }
+    })
   }
 }

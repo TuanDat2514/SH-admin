@@ -33,6 +33,8 @@ import { DetailProductComponent } from "./pages/product/detail-product/detail-pr
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 registerLocaleData(en);
 
 @NgModule({
@@ -68,7 +70,9 @@ registerLocaleData(en);
     NzPopoverModule,
     NzUploadModule,
     NzMessageModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzSelectModule,
+    NzAutocompleteModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }

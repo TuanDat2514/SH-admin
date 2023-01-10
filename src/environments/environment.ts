@@ -14,6 +14,11 @@ export const PARAM = {
   //product
   GET_ALL_PRODUCT:"product/all",
   UPDATE_PRODUCT:"product/update",
-  GET_PRODUCT_BY_ID:"product/getProdbyId"
+  GET_PRODUCT_BY_ID:"product/getProdbyId",
+  ADD_PRODUCT:"product/add",
+  DELETE_PRODUCT:"product/delete",
+
+  //stock
+  GET_STOCK_PRODUCT:"stock/stockProduct",
 }
 

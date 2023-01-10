@@ -19,4 +19,16 @@ export class ProductService {
   getProductbyId(id_product:string){
     return this.http.get<Product>(`${URL_ROOT}/${PARAM.GET_PRODUCT_BY_ID}/${id_product}`);
   }
+
+  addProduct(body:any){
+    return this.http.post(`${URL_ROOT}/${PARAM.ADD_PRODUCT}`,body,{observe: "response"});
+  }
+
+  deleteProduct(id_product:string){
+    return this.http.delete(`${URL_ROOT}/${PARAM.DELETE_PRODUCT}/${id_product}`,{observe:"response"});
+  }
+
+  getStockProduct(id_product:string,id_brand:string){
+    return this.http.get(`${URL_ROOT}/${PARAM.GET_STOCK_PRODUCT}/${id_product}?id_brand=${id_brand}`,{observe:"response"});
+  }
 }
