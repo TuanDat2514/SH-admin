@@ -31,4 +31,8 @@ export class ProductService {
   getStockProduct(id_product:string,id_brand:string){
     return this.http.get(`${URL_ROOT}/${PARAM.GET_STOCK_PRODUCT}/${id_product}?id_brand=${id_brand}`,{observe:"response"});
   }
+
+  searchProduct(key:string){
+    return this.http.get(`${URL_ROOT}/${PARAM.SEARCH_PRODUCT}=${key}`);
+  }
 }

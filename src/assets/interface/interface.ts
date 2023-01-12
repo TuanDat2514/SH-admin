@@ -23,6 +23,7 @@ export interface Product{
   sizeMan:Size[],
   sizeWoman:Size[]
 }
+
 export interface Size{
   id_size: number,
   id_brand: string,
@@ -40,6 +41,7 @@ export interface Detail{
   payment_method: string,
   detailCart: ItemCart[]
 }
+
 export interface ItemCart{
   id: number,
   id_product: string,

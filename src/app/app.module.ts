@@ -35,6 +35,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
+import { BrandComponent } from "./pages/brand/brand.component";
 registerLocaleData(en);
 
 @NgModule({
@@ -46,7 +47,8 @@ registerLocaleData(en);
     LoadingComponent,
     DetailReceivedComponent,
     AddProductComponent,
-    DetailProductComponent
+    DetailProductComponent,
+    BrandComponent
   ],
   imports: [
     BrowserModule,

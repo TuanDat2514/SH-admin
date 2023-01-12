@@ -1,5 +1,11 @@
 <h1>Danh sách sản phẩm</h1>
 <div class="btn-action">
+  <nz-input-group [nzPrefix]="suffixIconSearch" style="width: 200px">
+    <input type="text" nz-input placeholder="Tìm kiếm sản phẩm" [(ngModel)]="valueSearchInput" (ngModelChange)="this.valueSearchInputUpdate.next($event)"/>
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <span nz-icon nzType="search"></span>
+  </ng-template>
   <button nz-button nzType="primary" (click)="openDrawerAddProd()">
     <span nz-icon nzType="plus" nzTheme="outline"></span>
     Thêm sản phẩm
@@ -71,6 +77,6 @@
   nzWidth="500px"
 >
   <ng-container *nzDrawerContent>
-    <app-add-product></app-add-product>
+    <app-add-product (refreshData)="displayData()" (closeDrawer)="closeDrawer($event)"></app-add-product>
   </ng-container>
 </nz-drawer>

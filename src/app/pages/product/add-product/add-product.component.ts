@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../../../firebase/firebaseConfig";
@@ -13,6 +13,9 @@ import { createMessage, genRandonString } from "../../../../environments/helper"
   styleUrls: ['./add-product.component.scss']
 })
 export class AddProductComponent implements OnInit {
+
+  @Output() refreshData = new EventEmitter();
+  @Output() closeDrawer = new EventEmitter();
   loading = false;
   avatarUrl?: string;
   file: any = {};
@@ -30,7 +33,8 @@ export class AddProductComponent implements OnInit {
     sub_img:[''],
   });
   optionBrand = optionBrand;
-  id_brand?:string
+  isLoadingImage:boolean = false;
+  id_brand?:string;
   constructor(private msg: NzMessageService, private fb: FormBuilder,private productService:ProductService) { }
 
   ngOnInit(): void {
@@ -50,9 +54,10 @@ export class AddProductComponent implements OnInit {
       (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log('Upload is ' + progress + '% done');
-
+        this.isLoadingImage = true;
       },
       (error) => {
+      createMessage(this.msg,'error','Tải ảnh')
         switch (error.code) {
           case 'storage/unauthorized':
             // User doesn't have permission to access the object
@@ -71,6 +76,7 @@ export class AddProductComponent implements OnInit {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log('File available at', downloadURL);
           this.imgNew = downloadURL;
+          this.isLoadingImage = false;
         });
       }
     );
@@ -78,11 +84,13 @@ export class AddProductComponent implements OnInit {
 
   ngSubmit() {
     this.newForm.value.img = this.imgNew;
-    console.log(this.newForm);
+    console.log(this.newForm.value);
     this.newForm.value.id_product = genRandonString(4);
     this.productService.addProduct(this.newForm.value).subscribe(res=>{
       if(res.status === 200){
         createMessage(this.msg,'success','Thêm mới');
+        this.refreshData.emit();
+        this.closeDrawer.emit(false);
       }
     })
   }

@@ -17,7 +17,7 @@ export const PARAM = {
   GET_PRODUCT_BY_ID:"product/getProdbyId",
   ADD_PRODUCT:"product/add",
   DELETE_PRODUCT:"product/delete",
-
+  SEARCH_PRODUCT:"product/search?key",
   //stock
   GET_STOCK_PRODUCT:"stock/stockProduct",
 }

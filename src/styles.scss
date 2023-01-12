@@ -16,6 +16,10 @@ body{
   border: none;
   color: white;
   border-radius: 5px;
+  &:disabled{
+    opacity: 60%;
+    cursor: not-allowed;
+  }
 }
 .ant-select{
   width: 100%;

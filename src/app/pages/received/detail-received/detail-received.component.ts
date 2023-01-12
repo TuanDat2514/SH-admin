@@ -23,6 +23,10 @@ export class DetailReceivedComponent implements OnInit,OnChanges {
       this.detail=res;
     });
   }
+
+  ngOnInit(): void {
+  }
+
   handleOk(): void {
     this.isOkLoading = true;
   }
@@ -30,9 +34,11 @@ export class DetailReceivedComponent implements OnInit,OnChanges {
   handleCancel(): void {
     this.isVisible = false;
   }
+
   openModal(){
     this.isVisible = true;
   }
+
   open(): void {
     this.visible = true;
   }
@@ -41,8 +47,7 @@ export class DetailReceivedComponent implements OnInit,OnChanges {
     this.visible = false;
     this.closeDrawer.emit(false);
   }
-  ngOnInit(): void {
-  }
+
   handleSubmit(){
     this.isOkLoading = true;
     this.receivedService.updateRecevied(this.cartSelected.id_cart,{

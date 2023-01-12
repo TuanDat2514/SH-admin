@@ -4,10 +4,6 @@
     <input type="file" id="img" alt="" (change)="chooseFile($event)" nz-input />
   </div>
   <div class="row">
-    <label for="id">Mã sản phẩm</label>
-    <input type="text" id="id" nz-input disabled>
-  </div>
-  <div class="row">
     <label for="name">Tên sản phẩm</label>
     <input type="text" id="name" nz-input formControlName="name">
   </div>
@@ -58,6 +54,6 @@
 
   </div>
   <div class="btn-add">
-  <button class="btn-submit" type="submit">Thêm</button>
+  <button class="btn-submit" type="submit" [disabled]="isLoadingImage">Thêm</button>
   </div>
 </form>

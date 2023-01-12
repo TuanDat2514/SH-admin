@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from "../../../assets/interface/interface";
 import { ProductService } from "../../_sevices/product/product.service";
-import { ref, uploadBytesResumable, getDownloadURL, getStorage } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../../firebase/firebaseConfig";
 import { NzMessageService } from "ng-zorro-antd/message";
-import { concatMap } from 'rxjs/operators';
 import { createMessage } from "../../../environments/helper";
-
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -15,6 +15,14 @@ import { createMessage } from "../../../environments/helper";
 export class ProductComponent implements OnInit {
 
   constructor(private productService: ProductService,private message: NzMessageService) {
+    this.valueSearchInputUpdate.pipe(
+      debounceTime(400),
+      distinctUntilChanged())
+      .subscribe(value => {
+        this.productService.searchProduct(value).subscribe((res:any) => {
+          this.listOfData= res;
+        })
+      });
   }
 
   editCache: { [key: string]: { edit: boolean; data: Product } } = {};
@@ -31,6 +39,9 @@ export class ProductComponent implements OnInit {
   openDrawerAddProduct:boolean = false;
   isUploading:boolean = false;
   progress!:number;
+  valueSearchInput: string = '';
+  valueSearchInputUpdate = new Subject<string>();
+
 
   chooseFile(event: any) {
     if (event.target.files.length > 0) {
@@ -165,6 +176,7 @@ export class ProductComponent implements OnInit {
 
   closeDrawer($event: boolean) {
     this.openDrawerDetail = $event;
+    this.openDrawerAddProduct = $event;
   }
 
   openDrawerAddProd(){

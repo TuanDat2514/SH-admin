@@ -13,7 +13,6 @@ const routes: Routes = [
   { path: 'received', component:ReceivedComponent },
   { path: 'sale', component:SaleComponent },
   { path: 'statistical', component:StatisticalComponent },
-  { path: 'add-product', component:AddProductComponent },
 ];
 
 @NgModule({
