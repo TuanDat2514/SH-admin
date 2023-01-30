@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { PARAM, URL_ROOT } from "../../../environments/environment";
 import { Observable } from "rxjs";
 import { Discount } from "../../../assets/interface/interface";
+import { PARAM, URL_ROOT } from "../../../assets/param";
 
 @Injectable({
   providedIn: 'root'
