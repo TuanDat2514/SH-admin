@@ -1,6 +1,6 @@
 
 export const environment = {
-  production: false
+  production: true
 };
 
 export const URL_ROOT = "http://localhost:8080";
