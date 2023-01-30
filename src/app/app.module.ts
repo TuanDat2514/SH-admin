@@ -36,6 +36,8 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { BrandComponent } from "./pages/brand/brand.component";
+import { StatisticalComponent } from "./pages/statistical/statistical.component";
+import { NgChartsModule } from 'ng2-charts';
 registerLocaleData(en);
 
 @NgModule({
@@ -48,7 +50,8 @@ registerLocaleData(en);
     DetailReceivedComponent,
     AddProductComponent,
     DetailProductComponent,
-    BrandComponent
+    BrandComponent,
+    StatisticalComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,8 @@ registerLocaleData(en);
     NzMessageModule,
     ReactiveFormsModule,
     NzSelectModule,
-    NzAutocompleteModule
+    NzAutocompleteModule,
+    NgChartsModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }

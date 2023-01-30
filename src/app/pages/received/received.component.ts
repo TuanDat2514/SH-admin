@@ -68,7 +68,7 @@ export class ReceivedComponent implements OnInit {
 
   }
   handleSearch(){
-    this.receivedService.getReceviedbyId(this.inputValue).subscribe(res=>{
+    this.receivedService.getReceivedById(this.inputValue).subscribe(res=>{
       this.listOfData = [];
       this.listOfData.push(res);
     })
@@ -78,6 +78,7 @@ export class ReceivedComponent implements OnInit {
   }
 
   constructor(private receivedService:ReceivedService) {
+    document.title = "Đơn hàng";
   }
 
   handleClickRecord(record: Received) {
@@ -85,13 +86,13 @@ export class ReceivedComponent implements OnInit {
     this.itemSelected = record;
   }
   displayData(){
-    this.receivedService.getListRecevied().subscribe(res =>{
+    this.receivedService.getListReceived().subscribe(res =>{
       this.listOfData = res;
     })
   }
   ngOnInit(): void {
     this.isLoading = true;
-    this.receivedService.getListRecevied().subscribe(res =>{
+    this.receivedService.getListReceived().subscribe(res =>{
       this.isLoading = false;
       this.listOfData = res;
     })

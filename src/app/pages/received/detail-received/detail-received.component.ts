@@ -50,7 +50,7 @@ export class DetailReceivedComponent implements OnInit,OnChanges {
 
   handleSubmit(){
     this.isOkLoading = true;
-    this.receivedService.updateRecevied(this.cartSelected.id_cart,{
+    this.receivedService.updateReceived(this.cartSelected.id_cart,{
       ...this.cartSelected,status:this.cartSelected.status === 0 ? 1 : 0
     }).subscribe(res =>{
       if(res.status === 200){

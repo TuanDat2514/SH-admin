@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-interface DataItem {
-  name: string;
-  chinese: number;
-  math: number;
-  english: number;
-}
+import { DiscountService } from "../../_sevices/discount/discount.service";
+import { Discount } from "../../../assets/interface/interface";
+
 @Component({
   selector: 'app-sale',
   templateUrl: './sale.component.html',
@@ -13,55 +10,39 @@ interface DataItem {
 export class SaleComponent implements OnInit {
   listOfColumn = [
     {
-      title: 'Name',
-      compare: (a: DataItem, b: DataItem) => a.name.localeCompare(b.name),
-      priority: false
+      title: 'ID',
+      compare: (a: Discount, b: Discount) => a.id - b.id,
+      priority: 1
     },
     {
-      title: 'Chinese Score',
-      compare: (a: DataItem, b: DataItem) => a.chinese - b.chinese,
+      title: 'Mã giảm giá',
+      compare: (a: Discount, b: Discount) => a.code.localeCompare(b.code),
       priority: 3
     },
     {
-      title: 'Math Score',
-      compare: (a: DataItem, b: DataItem) => a.math - b.math,
+      title: 'Giảm giá (%)',
+      compare: (a: Discount, b: Discount) => a.discount - b.discount,
       priority: 2
     },
     {
-      title: 'English Score',
-      compare: (a: DataItem, b: DataItem) => a.english - b.english,
-      priority: 1
-    }
+      title: 'Trạng thái',
+      compare: (a: Discount, b: Discount) => a.status - b.status,
+      priority: 4
+    },
   ];
-  listOfData: DataItem[] = [
-    {
-      name: 'John Brown',
-      chinese: 98,
-      math: 60,
-      english: 70
-    },
-    {
-      name: 'Jim Green',
-      chinese: 98,
-      math: 66,
-      english: 89
-    },
-    {
-      name: 'Joe Black',
-      chinese: 98,
-      math: 90,
-      english: 70
-    },
-    {
-      name: 'Jim Red',
-      chinese: 88,
-      math: 99,
-      english: 89
-    }
-  ];
-  constructor() { }
+  listOfData: Discount[] = [];
 
-  ngOnInit(): void {
+  constructor(private discountService: DiscountService) {
+    document.title = "Khuyến mãi";
   }
 
+  ngOnInit(): void {
+    this.displayData();
+  }
+
+  displayData() {
+    this.discountService.getAllDiscount().subscribe(res => {
+      this.listOfData = res;
+    })
+  }
 }

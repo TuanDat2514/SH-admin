@@ -54,3 +54,10 @@ export interface ItemCart{
   color: string,
   name: string
 }
+
+export interface Discount{
+  id:number,
+  code:string,
+  discount:number,
+  status:number
+}

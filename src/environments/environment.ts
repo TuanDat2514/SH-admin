@@ -20,5 +20,8 @@ export const PARAM = {
   SEARCH_PRODUCT:"product/search?key",
   //stock
   GET_STOCK_PRODUCT:"stock/stockProduct",
+
+  //discount
+  GET_ALL_DISCOUNT:"discount/getAllDiscount"
 }
 

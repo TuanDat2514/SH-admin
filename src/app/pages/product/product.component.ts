@@ -15,11 +15,12 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 export class ProductComponent implements OnInit {
 
   constructor(private productService: ProductService,private message: NzMessageService) {
+    document.title = "Sản Phẩm";
     this.valueSearchInputUpdate.pipe(
       debounceTime(400),
       distinctUntilChanged())
       .subscribe(value => {
-        this.productService.searchProduct(value).subscribe((res:any) => {
+        this.productService.searchProduct(value).subscribe((res) => {
           this.listOfData= res;
         })
       });
