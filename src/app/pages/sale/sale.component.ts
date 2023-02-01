@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DiscountService } from "../../_sevices/discount/discount.service";
 import { Discount } from "../../../assets/interface/interface";
+import { createMessage } from "../../../environments/helper";
+import { NzMessageService } from "ng-zorro-antd/message";
 
 @Component({
   selector: 'app-sale',
@@ -32,8 +34,32 @@ export class SaleComponent implements OnInit {
   ];
   listOfData: Discount[] = [];
 
-  constructor(private discountService: DiscountService) {
+  constructor(private discountService: DiscountService,private message: NzMessageService) {
     document.title = "Khuyến mãi";
+  }
+
+  isVisible = false;
+  isOkLoading = false;
+  selected!:Discount;
+  showModal(discount:Discount): void {
+    this.isVisible = true;
+    this.selected = discount;
+  }
+
+  handleOk(): void {
+    this.isOkLoading = true;
+    this.discountService.updateDiscount({...this.selected,status:this.selected.status == 1 ? 0 : 1}).subscribe(res => {
+      if(res.status === 200){
+        this.isOkLoading = false;
+        this.isVisible = false;
+        createMessage(this.message,"success","Cập nhật");
+        this.displayData();
+      }
+    });
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
   }
 
   ngOnInit(): void {

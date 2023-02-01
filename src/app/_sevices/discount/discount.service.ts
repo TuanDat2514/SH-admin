@@ -14,4 +14,8 @@ export class DiscountService {
   getAllDiscount():Observable<Array<Discount>>{
     return this.http.get<Array<Discount>>(`${URL_ROOT}/${PARAM.GET_ALL_DISCOUNT}`);
   }
+
+  updateDiscount(updateDiscount: Discount) {
+    return this.http.put(`${URL_ROOT}/${PARAM.UPDATE_DISCOUNT}`,updateDiscount,{observe:"response"});
+  }
 }

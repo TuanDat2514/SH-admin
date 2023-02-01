@@ -24,3 +24,11 @@ body{
 .ant-select{
   width: 100%;
 }
+.btn-action{
+  display: flex;
+  justify-content: right;
+  gap: 1.5rem;
+}
+.cursor{
+  cursor: pointer;
+}

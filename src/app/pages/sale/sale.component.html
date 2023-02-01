@@ -1,4 +1,16 @@
 <h1>Danh sách mã giảm giá</h1>
+<div class="btn-action">
+  <nz-input-group [nzPrefix]="suffixIconSearch" style="width: 200px">
+    <input type="text" nz-input placeholder="Tìm kiếm sản phẩm"/>
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <span nz-icon nzType="search"></span>
+  </ng-template>
+  <button nz-button nzType="primary">
+    <span nz-icon nzType="plus" nzTheme="outline"></span>
+    Thêm sản phẩm
+  </button>
+</div>
 <nz-table #sortTable [nzData]="listOfData" nzTableLayout="fixed">
   <thead>
   <tr>
@@ -8,7 +20,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let data of sortTable.data">
+  <tr *ngFor="let data of sortTable.data" class="cursor" (click)="showModal(data)" >
     <td nzAlign="center">{{ data.id }}</td>
     <td nzAlign="center">{{ data.code }}</td>
     <td nzAlign="center">{{ data.discount }}</td>
@@ -19,3 +31,12 @@
   </tr>
   </tbody>
 </nz-table>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Modal Title"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading"
+>
+  <p *nzModalContent>Bạn muốn chạy mã giảm giá này?</p>
+</nz-modal>
