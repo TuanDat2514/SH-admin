@@ -7,7 +7,9 @@
             [nzTrigger]="null">
     <div class="sidebar-logo">
       <a href="" target="_blank">
-        <img src="https://st3.depositphotos.com/7774456/13208/v/450/depositphotos_132088630-stock-illustration-logo-of-stylish-sneaker-for.jpg" alt="logo">
+        <img
+          src="https://st3.depositphotos.com/7774456/13208/v/450/depositphotos_132088630-stock-illustration-logo-of-stylish-sneaker-for.jpg"
+          alt="logo">
         <h1>Sneaker House</h1>
       </a>
     </div>
@@ -32,7 +34,7 @@
       <li nz-submenu nzOpen nzTitle="Khuyến mãi" nzIcon="pound">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="/sale">Đang khuyến mãi</a>
+            <a routerLink="/sale">Danh sách mã</a>
           </li>
         </ul>
       </li>
@@ -43,6 +45,10 @@
           </li>
         </ul>
       </li>
+      <li nz-menu-item nzSelected="false">
+        <span nz-icon nzType="logout" nzTheme="outline"></span>
+        <span>Đăng xuất</span>
+      </li>
     </ul>
   </nz-sider>
   <nz-layout>
@@ -50,8 +56,8 @@
       <div class="app-header">
         <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
             <span class="trigger"
-               nz-icon
-               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+                  nz-icon
+                  [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             >
             </span>
         </span>

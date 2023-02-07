@@ -38,6 +38,8 @@ import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { BrandComponent } from "./pages/brand/brand.component";
 import { StatisticalComponent } from "./pages/statistical/statistical.component";
 import { NgChartsModule } from 'ng2-charts';
+import { AddDiscountComponent } from "./pages/sale/add-discount/add-discount.component";
+import { NzToolTipModule } from "ng-zorro-antd/tooltip";
 registerLocaleData(en);
 
 @NgModule({
@@ -51,7 +53,8 @@ registerLocaleData(en);
     AddProductComponent,
     DetailProductComponent,
     BrandComponent,
-    StatisticalComponent
+    StatisticalComponent,
+    AddDiscountComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +81,8 @@ registerLocaleData(en);
     ReactiveFormsModule,
     NzSelectModule,
     NzAutocompleteModule,
-    NgChartsModule
+    NgChartsModule,
+    NzToolTipModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US }

@@ -25,3 +25,12 @@ export function genRandonString(length: number) {
   }
   return result;
 }
+export function genRandomCode(length: number) {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let charLength = chars.length;
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * charLength));
+  }
+  return result;
+}

@@ -41,6 +41,8 @@ export class SaleComponent implements OnInit {
   isVisible = false;
   isOkLoading = false;
   selected!:Discount;
+  isOpenDrawer = false;
+
   showModal(discount:Discount): void {
     this.isVisible = true;
     this.selected = discount;
@@ -69,6 +71,25 @@ export class SaleComponent implements OnInit {
   displayData() {
     this.discountService.getAllDiscount().subscribe(res => {
       this.listOfData = res;
+    })
+  }
+
+  handleAddDiscount() {
+    this.isOpenDrawer = true;
+  }
+
+  handleCloseDrawer(event:any){
+    this.isOpenDrawer = event;
+  }
+
+  handleDelete(id:number){
+    this.discountService.deleteDiscount(id).subscribe(res =>{
+      if(res.status === 200){
+        createMessage(this.message,'success',"Xóa");
+        this.displayData();
+      }else {
+        createMessage(this.message,'error',"Xóa");
+      }
     })
   }
 }

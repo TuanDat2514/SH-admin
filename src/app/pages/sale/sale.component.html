@@ -6,7 +6,7 @@
   <ng-template #suffixIconSearch>
     <span nz-icon nzType="search"></span>
   </ng-template>
-  <button nz-button nzType="primary">
+  <button nz-button nzType="primary" (click)="handleAddDiscount()">
     <span nz-icon nzType="plus" nzTheme="outline"></span>
     Thêm sản phẩm
   </button>
@@ -20,23 +20,27 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let data of sortTable.data" class="cursor" (click)="showModal(data)" >
-    <td nzAlign="center">{{ data.id }}</td>
-    <td nzAlign="center">{{ data.code }}</td>
-    <td nzAlign="center">{{ data.discount }}</td>
-    <td nzAlign="center">
+  <tr *ngFor="let data of sortTable.data" class="cursor" >
+    <td nzAlign="center" (click)="showModal(data)">{{ data.id }}</td>
+    <td nzAlign="center" (click)="showModal(data)">{{ data.code }}</td>
+    <td nzAlign="center" (click)="showModal(data)">{{ data.discount }}</td>
+    <td nzAlign="center" (click)="showModal(data)">
       <nz-tag [nzColor]="'error'" *ngIf="data.status === 0">Không hoạt động</nz-tag>
       <nz-tag [nzColor]="'success'" *ngIf="data.status === 1">Đang hoạt động</nz-tag>
+    </td>
+    <td nzAlign="center">
+      <a nz-popconfirm nzPopconfirmTitle="Bạn chắc chắn xóa?" nz-button nzType="primary" nzShape="circle" nzDanger (nzOnConfirm)="handleDelete(data.id)"><span nz-icon nzType="delete" ></span></a>
     </td>
   </tr>
   </tbody>
 </nz-table>
 <nz-modal
   [(nzVisible)]="isVisible"
-  nzTitle="Modal Title"
+  nzTitle="Thông báo"
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk()"
   [nzOkLoading]="isOkLoading"
 >
-  <p *nzModalContent>Bạn muốn chạy mã giảm giá này?</p>
+  <p *nzModalContent>{{selected.status === 0 ? "Bạn muốn chạy mã giảm giá này?" : "Bạn muốn dừng mã giảm giá này?"}}</p>
 </nz-modal>
+<app-add-discount [visible]="isOpenDrawer" (closeDrawer)="handleCloseDrawer($event)" (refresh)="displayData()"></app-add-discount>
