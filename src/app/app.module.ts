@@ -40,6 +40,7 @@ import { StatisticalComponent } from "./pages/statistical/statistical.component"
 import { NgChartsModule } from 'ng2-charts';
 import { AddDiscountComponent } from "./pages/sale/add-discount/add-discount.component";
 import { NzToolTipModule } from "ng-zorro-antd/tooltip";
+import { LoginComponent } from "./pages/login/login.component";
 registerLocaleData(en);
 
 @NgModule({
@@ -54,7 +55,8 @@ registerLocaleData(en);
     DetailProductComponent,
     BrandComponent,
     StatisticalComponent,
-    AddDiscountComponent
+    AddDiscountComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

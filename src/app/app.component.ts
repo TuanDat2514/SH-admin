@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   isCollapsed = false;
-
+  isLogin;
+  constructor() {
+    if(window.location.pathname === "/login"){
+      this.isLogin = true;
+    }else {
+      this.isLogin = false;
+    }
+  }
 }
