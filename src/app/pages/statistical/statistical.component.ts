@@ -31,7 +31,7 @@ export class StatisticalComponent implements OnInit {
     }
 
   };
-  public barChartType: any = 'line';
+  public barChartType: any = 'bar';
   public barChartPlugins = [
     DataLabelsPlugin
   ];
