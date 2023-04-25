@@ -62,3 +62,23 @@ export interface Discount{
   status:number
 }
 
+export interface LoginBody{
+  username:string,
+  password:string
+}
+
+export interface LoginResponse{
+  code : number,
+  data : {
+    id_user: 1,
+    fullName: string,
+    address:string ,
+    birthday: string,
+    phone:string ,
+    gender:string,
+    email: string,
+    role: string
+  }
+  message:string,
+  success:boolean
+}

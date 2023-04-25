@@ -1,0 +1,83 @@
+<h1>Danh sách sản phẩm</h1>
+<div class="btn-action">
+  <nz-input-group [nzPrefix]="suffixIconSearch" style="width: 200px">
+    <input type="text" nz-input placeholder="Tìm kiếm sản phẩm" [(ngModel)]="valueSearchInput" (ngModelChange)="this.valueSearchInputUpdate.next($event)"/>
+  </nz-input-group>
+  <ng-template #suffixIconSearch>
+    <span nz-icon nzType="search"></span>
+  </ng-template>
+  <button nz-button nzType="primary" (click)="openDrawerAddProd()">
+    <span nz-icon nzType="plus" nzTheme="outline"></span>
+    Thêm sản phẩm
+  </button>
+</div>
+<nz-table #editRowTable nzBordered [nzData]="listOfData" nzTableLayout="fixed" [nzPageSize]="pageSize" [nzTotal]="totalItem">
+  <thead>
+  <tr>
+    <th nzAlign="center" nzWidth="10%">Hình ảnh</th>
+    <th nzAlign="center" nzWidth="10%">Mã sản phẩm</th>
+    <th nzAlign="center" nzWidth="10%">Tên sản phẩm</th>
+    <th nzAlign="center" nzWidth="10%">Màu</th>
+    <th nzAlign="center" nzWidth="10%">Giới tính</th>
+    <th nzAlign="center" nzWidth="20%">Mô tả</th>
+    <th nzAlign="center" nzWidth="10%">Trending</th>
+    <th nzAlign="center" nzWidth="10%">Giá</th>
+    <th nzAlign="center" ></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of editRowTable.data">
+    <ng-container *ngIf="!editCache[data.id_product].edit; else editTemplate">
+      <td nzAlign="center">
+        <img [src]="data.img" alt="" style="width: 80px;height: 111px;object-fit: contain;">
+      </td>
+      <td nzAlign="center" (click)="handleRecord(data)" >{{ data.id_product }}</td>
+      <td nzAlign="center" (click)="handleRecord(data)" >{{ data.name }}</td>
+      <td nzAlign="center" (click)="handleRecord(data)" >{{ data.color }}</td>
+      <td nzAlign="center">
+        <nz-tag [nzColor]="'pink'" *ngIf="data.gender === 0">Nữ</nz-tag>
+        <nz-tag [nzColor]="'cyan'" *ngIf="data.gender === 1">Nam</nz-tag>
+        <nz-tag [nzColor]="'purple'" *ngIf="data.gender === 2">Cả hai</nz-tag>
+      </td>
+      <td nzAlign="center" class="td-description">{{ data.description }}</td>
+      <td nzAlign="center">
+        <nz-tag [nzColor]="'error'" *ngIf="data.trending === 0">Hết trending</nz-tag>
+        <nz-tag [nzColor]="'success'" *ngIf="data.trending === 1">Đang trending</nz-tag>
+      </td>
+      <td nzAlign="center">{{ data.price  * 1000| currency:'VND':' ':'1.'}}</td>
+      <td nzAlign="center" class="action">
+        <button nz-button nzType="primary" (click)="startEdit(data.id_product,data)" nzShape="circle"><span nz-icon nzType="edit"></span></button>
+        <a nz-popconfirm nzPopconfirmTitle="Bạn chắc chắn xóa?" nz-button nzType="primary" nzShape="circle" nzDanger (nzOnConfirm)="deleteProduct(data.id_product)"><span nz-icon nzType="delete" ></span></a>
+      </td>
+    </ng-container>
+    <ng-template #editTemplate>
+      <td nzAlign="center"><input type="file" nz-input [(ngModel)]="editCache[data.id_product].data.img" (change)="chooseFile($event)" /></td>
+      <td nzAlign="center"><input type="text" nz-input [(ngModel)]="editCache[data.id_product].data.id_product" /></td>
+      <td nzAlign="center"><input type="text" nz-input [(ngModel)]="editCache[data.id_product].data.name" /></td>
+      <td nzAlign="center"><input type="text" nz-input [(ngModel)]="editCache[data.id_product].data.color" /></td>
+      <td nzAlign="center"><input type="text" nz-input [(ngModel)]="editCache[data.id_product].data.gender" /></td>
+      <td nzAlign="center"><input type="text" nz-input [(ngModel)]="editCache[data.id_product].data.description"/></td>
+      <td nzAlign="center"><input type="text" nz-input [(ngModel)]="editCache[data.id_product].data.trending" /></td>
+      <td nzAlign="center"><input type="text" nz-input [(ngModel)]="editCache[data.id_product].data.price" /></td>
+      <td nzAlign="center" class="action">
+        <a (click)="saveEdit(data.id_product)" class="save" nz-button  nzShape="circle" nzType="primary" [disabled]="isUploading"><span nz-icon nzType="check"></span></a >
+        <a nz-popconfirm nzPopconfirmTitle="Sure to cancel?" (nzOnConfirm)="cancelEdit(data.id_product)" nzShape="circle" nz-button nzType="primary" nzDanger><span nz-icon nzType="close"></span></a>
+      </td>
+    </ng-template>
+  </tr>
+  </tbody>
+</nz-table>
+<app-detail-product [visible]="openDrawerDetail" (closeDrawer)="closeDrawer($event)" [productSelected]="productSelected"></app-detail-product>
+<nz-drawer
+  [nzClosable]="false"
+  [nzVisible]="openDrawerAddProduct"
+  nzPlacement="right"
+  nzTitle="Thêm sản phẩm"
+  (nzOnClose)="closeDrawerAddProd()"
+  nzWidth="500px"
+>
+  <ng-container *nzDrawerContent>
+    <app-add-product (refreshData)="displayData()" (closeDrawer)="closeDrawer($event)"></app-add-product>
+  </ng-container>
+</nz-drawer>
+

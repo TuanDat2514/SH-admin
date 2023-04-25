@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoadingService } from "./_sevices/loading/loading.service";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,7 +8,11 @@ import { Component } from '@angular/core';
 export class AppComponent {
   isCollapsed = false;
   isLogin;
-  constructor() {
+  isLoading! : boolean ;
+  constructor(private loadingService:LoadingService) {
+    this.loadingService.isLoading.subscribe(res => {
+      this.isLoading = res;
+    })
     if(window.location.pathname === "/login"){
       this.isLogin = true;
     }else {

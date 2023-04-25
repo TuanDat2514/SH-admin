@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  ngOnInit(): void {
+  }
+  isCollapsed = false;
+  isLogin;
+  constructor() {
+    if(window.location.pathname === "/login"){
+      this.isLogin = true;
+    }else {
+      this.isLogin = false;
+    }
   }
 
 }

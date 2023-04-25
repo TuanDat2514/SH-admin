@@ -2,31 +2,34 @@
   <div id="wrapper" >
     <h1>THE LOGO</h1>
     <h2>A cool headline.</h2>
-    <form>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
       <input type="radio" id="login" name="action" value="login" checked>
       <input type="radio" id="register" name="action" value="register">
       <input type="radio" id="reset" name="action" value="reset">
       <div id="inputs">
         <div>
-          <input type="text" placeholder="Tài khoản" autofocus [(ngModel)]="username">
+          <input type="text" placeholder="Tài khoản" autofocus required formControlName="username">
           <div>
-            <input type="password" placeholder="Mật khẩu" [(ngModel)]="password">
+            <input type="password" placeholder="Mật khẩu" required formControlName="password">
             <div>
               <input type="password" placeholder="Nhập lại mật khẩu" [(ngModel)]="repeatPassword">
               <input type="submit" value="reset password" (click)="resetPassword()">
               <div>
                 <input type="submit" value="Đăng ký" (click)="register()">
-                <input type="submit" value="Đăng nhập" (click)="login()">
+                <input type="submit" value="Đăng nhập">
               </div>
             </div>
           </div>
         </div>
       </div>
       <div id="labels">
+        <div *ngIf="message" class="alert alert-danger">
+            {{message}}
+        </div>
         <label for="login">Bạn đã có tài khoản? <span>Đăng nhập</span></label>
-        <label for="reset">Bạn quên mật khẩu? <span>Đặt lại</span></label>
+<!--        <label for="reset">Bạn quên mật khẩu? <span>Đặt lại</span></label>-->
         <label for="login"><span>Trở lại</span></label>
-        <label for="register">Bạn chưa có tài khoản? <span>Đăng ký</span></label>
+<!--        <label for="register">Bạn chưa có tài khoản? <span>Đăng ký</span></label>-->
       </div>
     </form>
   </div>

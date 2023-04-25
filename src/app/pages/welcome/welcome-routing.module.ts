@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { WelcomeComponent } from './welcome.component';
+import { AppLayoutComponent } from "./app-layout/app-layout.component";
 
 const routes: Routes = [
-  { path: '', component: WelcomeComponent },
+  { path: '', component: WelcomeComponent,children:[
+      {path:'product',component:AppLayoutComponent}
+    ] },
 ];
 
 @NgModule({

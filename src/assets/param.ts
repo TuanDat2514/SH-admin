@@ -20,5 +20,8 @@ export const PARAM = {
   GET_ALL_DISCOUNT:"discount/getAllDiscount",
   UPDATE_DISCOUNT:"discount/updateDiscount",
   ADD_DISCOUNT:"discount/addDiscount",
-  DELETE_DISCOUNT:"discount/deleteDiscount"
+  DELETE_DISCOUNT:"discount/deleteDiscount",
+
+  //auth
+  LOGIN:"auth/login",
 }
