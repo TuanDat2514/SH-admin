@@ -1,0 +1,72 @@
+<nz-drawer
+  [nzClosable]="false"
+  [nzVisible]="visible"
+  nzPlacement="right"
+  [nzTitle]="header"
+  (nzOnClose)="close()"
+  nzWidth="600px"
+  [nzFooter]="footer"
+>
+  <ng-container *nzDrawerContent>
+    <div class="drawer-content" style="padding-left: 16px;padding-right: 16px">
+      <div class="row">
+        <p>Người nhận hàng : </p>
+        <p>{{detail?.consignee}}</p>
+      </div>
+      <div class="row">
+        <p>SĐT : </p>
+        <p>{{detail?.consignee_phone}}</p>
+      </div>
+      <div class="row">
+        <p>Địa chỉ : </p>
+        <p>{{detail?.delivery_address}}</p>
+      </div>
+      <div class="row" *ngIf="detail?.delivery_method === '1'">
+        <p>Phương thức giao hàng : </p>
+        <p>Giao hàng nhanh</p>
+      </div>
+      <div class="row">
+        <p>Phương thức thanh toán : </p>
+        <p>{{detail?.payment_method === '1' ? "Thanh toán trực tiếp" : "Thanh toán trực tuyến"}}</p>
+      </div>
+      <div class="list-item">
+        <p> Danh sách sản phẩm : </p>
+        <div class="list" *ngFor="let item of detail?.detailCart">
+          <div class="item">
+            <div class="item-img">
+              <img [src]="item.img" alt="img">
+              <div class="info">
+                <p>{{item.name}}</p>
+                <p>{{item.color}} - {{item.size}}</p>
+              </div>
+            </div>
+            <div class="quantity">
+              x{{item.quantity}}
+            </div>
+            <div class="total">
+              {{item.total_prod * 1000| currency:'VND':' ':'1.'}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</nz-drawer>
+<ng-template #footer>
+
+  <button class="btn-submit" (click)="openModal()" >{{cartSelected?.status === 0 ? "Xác nhận" : "Hủy đơn hàng"}}</button>
+</ng-template>
+<ng-template #header>
+  <p style="font-size: 24px">Chi tiết đơn hàng</p>
+</ng-template>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Thông báo"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleSubmit()"
+  [nzOkLoading]="isOkLoading"
+  nzOkText="OK"
+  nzCancelText="Hủy bỏ"
+>
+  <p *nzModalContent>{{cartSelected.status === 0 ? "Bạn chắc chắn xác nhận đơn hàng này?":"Bạn chắc chắn hủy đơn hàng này?"}}</p>
+</nz-modal>

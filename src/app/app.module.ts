@@ -19,7 +19,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
-import { LoadingComponent } from "./loading/loading.component";
+import { LoadingComponent } from "./pages/welcome/loading/loading.component";
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzInputModule } from "ng-zorro-antd/input";
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
@@ -31,7 +31,7 @@ import { NzAutocompleteModule } from 'ng-zorro-antd/auto-complete';
 import { NgChartsModule } from 'ng2-charts';
 import { NzToolTipModule } from "ng-zorro-antd/tooltip";
 import { LoginComponent } from "./pages/login/login.component";
-import { LoadingGlobalComponent } from "./loading/loading-global/loading-global.component";
+import { LoadingGlobalComponent } from "./loading-global/loading-global.component";
 import { HttpInterceptorService } from "./_sevices/auth/http-interceptor.service";
 
 registerLocaleData(en);
@@ -39,7 +39,6 @@ registerLocaleData(en);
 @NgModule({
   declarations: [
     AppComponent,
-    LoadingComponent,
     LoginComponent,
     LoadingGlobalComponent,
   ],

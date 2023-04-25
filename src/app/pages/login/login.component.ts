@@ -4,7 +4,7 @@ import { AuthService } from "../../_sevices/auth/auth.service";
 import { LoginBody } from "../../../assets/interface/interface";
 import { LoadingService } from "../../_sevices/loading/loading.service";
 import { Router } from "@angular/router";
-import { PATH_DASHBOARD } from "../../../assets/interface/path";
+import { PATH_DASHBOARD, PATH_PRODUCT } from "../../../assets/interface/path";
 
 @Component({
   selector: 'app-login',
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       this.message = "";
         this.authService.login(this.loginForm.value as LoginBody).subscribe((res) => {
           if (res.success) {
-            this.route.navigate([PATH_DASHBOARD]);
+            this.route.navigate([PATH_PRODUCT]);
             this.authService.registerSuccessfulLogin(this.loginForm.value.username as string);
             this.authService.username = this.loginForm.value.username;
             this.authService.password = this.loginForm.value.password;

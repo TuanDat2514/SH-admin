@@ -31,6 +31,7 @@ export class ProductComponent implements OnInit {
   progress!:number;
   valueSearchInput: string = '';
   valueSearchInputUpdate = new Subject<string>();
+  isLoading:boolean = false;
   chooseFile(event: any) {
     if (event.target.files.length > 0) {
       this.file = event.target.files[0];
@@ -130,6 +131,7 @@ export class ProductComponent implements OnInit {
   }
 
   displayData(){
+    this.isLoading = true
     this.productService.getAllProduct().subscribe(res => {
       this.totalItem = res.length;
       const data: any = [];
@@ -150,6 +152,7 @@ export class ProductComponent implements OnInit {
       this.listOfData = data;
       console.log(this.listOfData);
       this.updateEditCache();
+      this.isLoading = false;
     });
   }
 

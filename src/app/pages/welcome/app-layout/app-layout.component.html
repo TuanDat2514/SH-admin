@@ -1,3 +1,4 @@
+<!--
 <nz-layout class="app-layout">
     <nz-sider class="menu-sidebar"
               nzCollapsible
@@ -41,7 +42,7 @@
         <li nz-submenu nzOpen nzTitle="Thống kê" nzIcon="line-chart">
           <ul>
             <li nz-menu-item nzMatchRouter>
-              <a routerLink="/statistical">Doanh thu</a>
+              <a routerLink='statistical'>Doanh thu</a>
             </li>
           </ul>
         </li>
@@ -65,9 +66,12 @@
       </nz-header>
       <nz-content>
         <div class="inner-content">
-          {{element}}
+            <ng-container *ngIf="path === 'product'">
+              <app-product></app-product>
+            </ng-container>
         </div>
       </nz-content>
     </nz-layout>
 </nz-layout>
 
+-->

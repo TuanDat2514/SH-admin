@@ -31,11 +31,16 @@ import { CommonModule } from "@angular/common";
 import { ProductComponent } from "./product/product.component";
 import { AddProductComponent } from "./product/add-product/add-product.component";
 import { DetailProductComponent } from "./product/detail-product/detail-product.component";
-import { HttpClientModule } from "@angular/common/http";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { ReceivedComponent } from "./received/received.component";
+import { LoadingComponent } from "./loading/loading.component";
+import { DetailReceivedComponent } from "./received/detail-received/detail-received.component";
+import { HttpInterceptorService } from "../../_sevices/auth/http-interceptor.service";
+
 
 @NgModule({
-  imports: [WelcomeRoutingModule,
+  imports: [
+    WelcomeRoutingModule,
     CommonModule,
     FormsModule,
     HttpClientModule,
@@ -58,14 +63,23 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     NzSelectModule,
     NzAutocompleteModule,
     NgChartsModule,
-    NzToolTipModule, NzIconModule],
+    NzToolTipModule,
+    NzIconModule,],
   declarations: [WelcomeComponent,
     StatisticalComponent,
     AppLayoutComponent,
     BrandComponent,
     ProductComponent,
     AddProductComponent,
-    DetailProductComponent],
-  exports: [WelcomeComponent]
+    DetailProductComponent,
+    ReceivedComponent,LoadingComponent,DetailReceivedComponent],
+  exports: [WelcomeComponent],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    }
+  ],
 })
 export class WelcomeModule { }

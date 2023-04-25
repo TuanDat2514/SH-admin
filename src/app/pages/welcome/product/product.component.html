@@ -11,7 +11,7 @@
     Thêm sản phẩm
   </button>
 </div>
-<nz-table #editRowTable nzBordered [nzData]="listOfData" nzTableLayout="fixed" [nzPageSize]="pageSize" [nzTotal]="totalItem">
+<nz-table #editRowTable nzBordered [nzData]="listOfData" nzTableLayout="fixed" [nzPageSize]="pageSize" [nzTotal]="totalItem" [nzLoading]="isLoading" >
   <thead>
   <tr>
     <th nzAlign="center" nzWidth="10%">Hình ảnh</th>
