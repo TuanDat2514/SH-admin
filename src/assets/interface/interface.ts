@@ -82,3 +82,8 @@ export interface LoginResponse{
   message:string,
   success:boolean
 }
+
+export interface Report{
+  revenue: number,
+  order: number
+}

@@ -1,9 +1,18 @@
-
+<div class="report">
+  <div class="block revenue">
+    <label>Doanh thu</label>
+    <p>{{report.revenue * 1000| currency:'VND':' ':'1.'}}</p>
+  </div>
+  <div class="block order">
+    <label>Số đơn hàng</label>
+    <p>{{report.order}}</p>
+  </div>
+</div>
 <div class="chart">
   <canvas baseChart class="chart"
         [data]="barChartData"
         [options]="barChartOptions"
         [plugins]="barChartPlugins"
-        [type]="barChartType">
+        [type]="barChartType" >
   </canvas>
 </div>

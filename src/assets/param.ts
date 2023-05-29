@@ -24,4 +24,7 @@ export const PARAM = {
 
   //auth
   LOGIN:"auth/login",
+
+  //cart
+  GET_REPORT:"cart/getReport"
 }
