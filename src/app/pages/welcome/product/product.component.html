@@ -47,7 +47,7 @@
       <td nzAlign="center">{{ data.price  * 1000| currency:'VND':' ':'1.'}}</td>
       <td nzAlign="center" class="action">
         <button nz-button nzType="primary" (click)="startEdit(data.id_product,data)" nzShape="circle"><span nz-icon nzType="edit"></span></button>
-        <a nz-popconfirm nzPopconfirmTitle="Bạn chắc chắn xóa?" nz-button nzType="primary" nzShape="circle" nzDanger (nzOnConfirm)="deleteProduct(data.id_product)"><span nz-icon nzType="delete" ></span></a>
+        <a nz-popconfirm nzPopconfirmTitle="Bạn chắc chắn xóa?" nz-button nzType="primary" nzShape="circle" nzDanger (nzOnConfirm)="deleteProduct(data.id_product)" nzOkText="OK" nzCancelText="Hủy bỏ" ><span nz-icon nzType="delete" ></span></a>
       </td>
     </ng-container>
     <ng-template #editTemplate>

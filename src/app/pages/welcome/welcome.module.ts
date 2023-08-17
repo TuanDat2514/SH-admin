@@ -36,7 +36,10 @@ import { ReceivedComponent } from "./received/received.component";
 import { LoadingComponent } from "./loading/loading.component";
 import { DetailReceivedComponent } from "./received/detail-received/detail-received.component";
 import { HttpInterceptorService } from "../../_sevices/auth/http-interceptor.service";
-
+import {en_US, NZ_I18N} from "ng-zorro-antd/i18n";
+import { registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
+registerLocaleData(en);
 
 @NgModule({
   imports: [
@@ -75,11 +78,7 @@ import { HttpInterceptorService } from "../../_sevices/auth/http-interceptor.ser
     ReceivedComponent,LoadingComponent,DetailReceivedComponent],
   exports: [WelcomeComponent],
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpInterceptorService,
-      multi: true
-    }
+    { provide: NZ_I18N, useValue: en_US }
   ],
 })
 export class WelcomeModule { }
