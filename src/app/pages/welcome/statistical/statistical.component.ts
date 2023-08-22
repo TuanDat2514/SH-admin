@@ -70,7 +70,7 @@ export class StatisticalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.statisticalService.getReport().subscribe(res => {
+    this.statisticalService.getStatistical().subscribe(res => {
       this.report = res;
     })
   }

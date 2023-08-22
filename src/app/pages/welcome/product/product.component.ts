@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from "../../../_sevices/product/product.service";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { Product } from "../../../../assets/interface/interface";
-import { Subject } from "rxjs";
+import {debounceTime, distinctUntilChanged, Subject} from "rxjs";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../../../firebase/firebaseConfig";
 import { createMessage } from "../../../../environments/helper";
+import {optionBrand} from "../../../../environments/constant";
 
 @Component({
   selector: 'app-product',
@@ -14,7 +15,16 @@ import { createMessage } from "../../../../environments/helper";
 })
 export class ProductComponent implements OnInit {
 
-  constructor(private productService: ProductService,private message: NzMessageService) { }
+  constructor(private productService: ProductService,private message: NzMessageService) {
+    this.valueSearchInputUpdate.pipe(
+      debounceTime(400),
+      distinctUntilChanged())
+      .subscribe(value => {
+        this.productService.searchProduct(value as string).subscribe((res:any) => {
+          this.listOfData= res;
+        })
+      });
+  }
   editCache: { [key: string]: { edit: boolean; data: Product } } = {};
   listOfData: Product[] = [];
   list!: Product[];
@@ -32,6 +42,9 @@ export class ProductComponent implements OnInit {
   valueSearchInput: string = '';
   valueSearchInputUpdate = new Subject<string>();
   isLoading:boolean = false;
+  searchBrandSelected:string = "Nhãn hiệu";
+  valueBrandSelected = "";
+  optionBrand = optionBrand;
   chooseFile(event: any) {
     if (event.target.files.length > 0) {
       this.file = event.target.files[0];
@@ -178,4 +191,17 @@ export class ProductComponent implements OnInit {
     this.openDrawerAddProduct = false;
   }
 
+  changeSelectedBrand(brand:any){
+    this.searchBrandSelected = brand.label;
+    this.valueBrandSelected = brand.value;
+  }
+
+  searchProduct(){
+    this.isLoading = true;
+    let body = {key:this.valueSearchInput,brand:this.valueBrandSelected};
+    this.productService.searchProduct(body).subscribe((res:any) => {
+      this.isLoading = false
+      this.listOfData= res;
+    })
+  }
 }

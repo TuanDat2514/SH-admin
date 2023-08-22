@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { LoginBody, LoginResponse } from "../../../assets/interface/interface";
-import { PARAM, URL_ROOT } from "../../../assets/param";
+import { PARAM, URL_ROOT } from "../../../environments/param";
 import { Observable } from "rxjs";
 
 @Injectable({

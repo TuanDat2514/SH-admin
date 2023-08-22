@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {BrandService} from "../../../_sevices/brand/brand.service";
 interface DataItem {
   name: string;
   chinese: number;
@@ -59,11 +60,14 @@ export class BrandComponent implements OnInit {
       english: 89
     }
   ];
-  constructor() {
+  constructor(private brandService:BrandService) {
     document.title = "Nhãn hiệu";
   }
 
   ngOnInit(): void {
+    this.brandService.getAllBrand().subscribe((res)=>{
+      console.log(res);
+    });
   }
 
 }

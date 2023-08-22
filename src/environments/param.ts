@@ -12,7 +12,7 @@ export const PARAM = {
   GET_PRODUCT_BY_ID:"product/getProdbyId",
   ADD_PRODUCT:"product/add",
   DELETE_PRODUCT:"product/delete",
-  SEARCH_PRODUCT:"product/search?key",
+  SEARCH_PRODUCT:"product/search",
   //stock
   GET_STOCK_PRODUCT:"stock/stockProduct",
 
@@ -26,5 +26,11 @@ export const PARAM = {
   LOGIN:"auth/login",
 
   //cart
-  GET_REPORT:"cart/getReport"
+  GET_REPORT:"cart/getReport",
+
+  //brand
+  GET_ALL_BRAND:"brand/all",
+
+  //report
+  GET_REPORT_ALL:"report/statistical"
 }

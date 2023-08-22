@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, Observable } from "rxjs";
 import { Discount } from "../../../assets/interface/interface";
-import { PARAM, URL_ROOT } from "../../../assets/param";
+import { PARAM, URL_ROOT } from "../../../environments/param";
 
 export interface BDiscount{
   code:string,

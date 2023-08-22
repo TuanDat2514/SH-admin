@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Product } from "../../../assets/interface/interface";
 import { Observable } from "rxjs";
-import { PARAM, URL_ROOT } from "../../../assets/param";
+import { PARAM, URL_ROOT } from "../../../environments/param";
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +33,7 @@ export class ProductService {
     return this.http.get(`${URL_ROOT}/${PARAM.GET_STOCK_PRODUCT}/${id_product}?id_brand=${id_brand}`,{observe:"response"});
   }
 
-  searchProduct(key:string){
-    return this.http.get<Array<Product>>(`${URL_ROOT}/${PARAM.SEARCH_PRODUCT}=${key}`);
+  searchProduct(body:any){
+    return this.http.post<Array<Product>>(`${URL_ROOT}/${PARAM.SEARCH_PRODUCT}`, body);
   }
 }
