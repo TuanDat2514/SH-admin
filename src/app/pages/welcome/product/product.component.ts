@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ProductService } from "../../../_sevices/product/product.service";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { Product } from "../../../../assets/interface/interface";
@@ -115,9 +115,7 @@ export class ProductComponent implements OnInit {
     const index = this.listOfData.findIndex(item => item.id_product === id);
     Object.assign(this.listOfData[index], this.editCache[id].data);
     const body:any = {
-      color: this.editCache[id].data.color,
       description: this.editCache[id].data.description,
-      gender: this.editCache[id].data.gender,
       id_product: this.editCache[id].data.id_product,
       img: this.imgNew || null,
       name: this.editCache[id].data.name,
@@ -152,14 +150,14 @@ export class ProductComponent implements OnInit {
         data.push({
           id_product: res[i].id_product,
           name: res[i].name,
-          color: res[i].color,
           price: res[i].price,
           description: res[i].description,
-          trending: res[i].trending,
-          gender: res[i].gender,
           img: res[i].img,
-          sub_img: res[i].sub_img,
-          stock: res[i].stock,
+          sub_img1: res[i].sub_img1,
+          sub_img2: res[i].sub_img2,
+          sub_img3: res[i].sub_img3,
+          region:res[i].region,
+          type:res[i].type
         });
       }
       this.listOfData = data;
@@ -174,8 +172,9 @@ export class ProductComponent implements OnInit {
   }
 
   handleRecord(item : any) {
-    this.openDrawerDetail = true;
+    //this.openDrawerDetail = true;
     this.productSelected = item;
+    this.openDrawerAddProd();
   }
 
   closeDrawer($event: boolean) {
@@ -189,6 +188,7 @@ export class ProductComponent implements OnInit {
 
   closeDrawerAddProd(){
     this.openDrawerAddProduct = false;
+    this.productSelected = '';
   }
 
   changeSelectedBrand(brand:any){

@@ -61,7 +61,7 @@ export class ReceivedComponent implements OnInit {
   handleSearch(){
     this.receivedService.getReceivedById(this.inputValue).subscribe(res=>{
       this.listOfData = [];
-      this.listOfData.push(res);
+      this.listOfData.push(res.cart);
     })
   }
   handleCancel(event:any): void {

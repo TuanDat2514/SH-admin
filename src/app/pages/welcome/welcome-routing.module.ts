@@ -6,6 +6,8 @@ import { ProductComponent } from "./product/product.component";
 import { StatisticalComponent } from "./statistical/statistical.component";
 import { BrandComponent } from "./brand/brand.component";
 import { ReceivedComponent } from "./received/received.component";
+import {SaleComponent} from "./sale/sale.component";
+
 
 const routes: Routes = [
   {
@@ -14,6 +16,7 @@ const routes: Routes = [
       { path: 'statistical', component: StatisticalComponent },
       { path: 'brand', component: BrandComponent },
       { path: 'received', component: ReceivedComponent },
+      {path:'sale',component:SaleComponent},
     ]
   },
 ];

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { Detail, Received } from "../../../assets/interface/interface";
+import { DetailShipping, Received } from "../../../assets/interface/interface";
 import { PARAM, URL_ROOT } from "../../../environments/param";
 
 @Injectable({
@@ -13,14 +13,14 @@ export class ReceivedService {
   getListReceived(){
     return this.http.get<Array<Received>>(`${URL_ROOT}/${PARAM.GET_LIST_RECEIVED}`);
   }
-  updateReceived(id:number,body:Received){
-    return this.http.put(`${URL_ROOT}/${PARAM.UPDATE_RECEIVED}/${id}`,body,{observe:"response"});
+  updateReceived(id:number){
+    return this.http.put(`${URL_ROOT}/${PARAM.UPDATE_RECEIVED}?id_cart=${id}`,undefined,{observe:"response"});
   }
 
-  getDetail(cart_id:number){
-    return this.http.get<Detail>(`${URL_ROOT}/${PARAM.GET_DETAIL}/${cart_id}`);
+  getDetailShipping(cart_id:number){
+    return this.http.get<DetailShipping>(`${URL_ROOT}/${PARAM.GET_DETAIL}/${cart_id}`);
   }
   getReceivedById(id:any){
-    return this.http.get<Received>(`${URL_ROOT}/${PARAM.GET_RECEIVED_BY_ID}/${id}`);
+    return this.http.get<any>(`${URL_ROOT}/${PARAM.GET_RECEIVED_BY_ID}/${id}`);
   }
 }

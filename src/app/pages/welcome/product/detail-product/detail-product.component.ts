@@ -54,7 +54,7 @@ export class DetailProductComponent implements OnInit {
             }
           }
         }*/
-        this.productService.getStockProduct(res.id_product,res.id_brand).subscribe(res =>{
+        /*this.productService.getStockProduct(res.id_product,res.id_brand).subscribe(res =>{
           this.a = res.body
           console.log(this.a);
           for (let i  = 0 ; i < this.a.length ; i++){
@@ -73,15 +73,15 @@ export class DetailProductComponent implements OnInit {
               })
             }
           }
-        })
+        })*/
       }
     )
-    if (!this.visible) {
+   /* if (!this.visible) {
       this.sizeWoman = [];
     }
     if (!this.visible) {
       this.sizeMan = [];
-    }
+    }*/
   }
 
 }

@@ -10,18 +10,15 @@ export interface Received{
 
 export interface Product{
   id_product:string,
-  id_brand:string,
+  region:string,
+  type:string,
   name:string,
-  color:string,
   price:number,
   description:string,
-  trending:number,
-  gender:number,
   img:string,
-  sub_img:string
-  stock?:any,
-  sizeMan:Size[],
-  sizeWoman:Size[]
+  sub_img1:string
+  sub_img2:string
+  sub_img3:string
 }
 
 export interface Size{
@@ -31,7 +28,11 @@ export interface Size{
   size: number
 }
 
-export interface Detail{
+export interface DetailShipping{
+  shipping:Shipping,
+  detailcart: ItemCart[]
+}
+export interface Shipping{
   id: number,
   cart_id: number,
   consignee: string,
@@ -39,9 +40,7 @@ export interface Detail{
   delivery_address: string,
   delivery_method: string,
   payment_method: string,
-  detailCart: ItemCart[]
 }
-
 export interface ItemCart{
   id: number,
   id_product: string,

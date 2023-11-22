@@ -11,37 +11,37 @@
     <div class="drawer-content" style="padding-left: 16px;padding-right: 16px">
       <div class="row">
         <p>Người nhận hàng : </p>
-        <p>{{detail?.consignee}}</p>
+        <p>{{detail?.shipping?.consignee}}</p>
       </div>
       <div class="row">
         <p>SĐT : </p>
-        <p>{{detail?.consignee_phone}}</p>
+        <p>{{detail?.shipping?.consignee_phone}}</p>
       </div>
       <div class="row">
         <p>Địa chỉ : </p>
-        <p>{{detail?.delivery_address}}</p>
+        <p>{{detail?.shipping?.delivery_address}}</p>
       </div>
-      <div class="row" *ngIf="detail?.delivery_method === '1'">
+      <div class="row" *ngIf="detail?.shipping?.delivery_method === '1'">
         <p>Phương thức giao hàng : </p>
         <p>Giao hàng nhanh</p>
       </div>
       <div class="row">
         <p>Phương thức thanh toán : </p>
-        <p>{{detail?.payment_method === '1' ? "Thanh toán trực tiếp" : "Thanh toán trực tuyến"}}</p>
+        <p>{{detail?.shipping?.payment_method === '1' ? "Thanh toán trực tiếp" : "Thanh toán trực tuyến"}}</p>
       </div>
       <div class="list-item">
         <p> Danh sách sản phẩm : </p>
-        <div class="list" *ngFor="let item of detail?.detailCart">
+        <div class="list" *ngFor="let item of detail?.detailcart">
           <div class="item">
             <div class="item-img">
               <img [src]="item.img" alt="img">
               <div class="info">
-                <p>{{item.name}}</p>
-                <p>{{item.color}} - {{item.size}}</p>
+                <p>{{item.name}} -</p>
+<!--                <span>{{item.color}} - {{item.size}}</span>-->
               </div>
-            </div>
-            <div class="quantity">
-              x{{item.quantity}}
+              <div class="quantity">
+                x{{item.quantity}}
+              </div>
             </div>
             <div class="total">
               {{item.total_prod * 1000| currency:'VND':' ':'1.'}}

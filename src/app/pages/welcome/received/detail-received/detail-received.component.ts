@@ -1,26 +1,32 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { Detail, Received } from "../../../../../assets/interface/interface";
-import { ReceivedService } from "../../../../_sevices/received/received.service";
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {DetailShipping, Received} from "../../../../../assets/interface/interface";
+import {ReceivedService} from "../../../../_sevices/received/received.service";
+import {createMessage} from "../../../../../environments/helper";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'app-detail-received',
   templateUrl: './detail-received.component.html',
   styleUrls: ['./detail-received.component.scss']
 })
-export class DetailReceivedComponent implements OnInit,OnChanges {
+export class DetailReceivedComponent implements OnInit, OnChanges {
   @Input() visible = false;
-  @Input() cartSelected! : Received;
+  @Input() cartSelected!: Received;
   @Output() closeDrawer = new EventEmitter<boolean>();
   @Output() refreshData = new EventEmitter();
-  detail!:Detail;
-  isVisible:any = false ;
+  detail!: DetailShipping;
+  isVisible: any = false;
   isOkLoading = false;
-  isLoading!:boolean;
-  constructor(private receivedService: ReceivedService) { }
+  isLoading!: boolean;
+
+  constructor(private receivedService: ReceivedService,
+              private msg: NzMessageService
+  ) {
+  }
 
   ngOnChanges() {
-    this.visible && this.receivedService.getDetail(this.cartSelected?.id_cart).subscribe((res:Detail) =>{
-      this.detail=res;
+    this.visible && this.receivedService.getDetailShipping(this.cartSelected?.id_cart).subscribe((res: DetailShipping) => {
+      this.detail = res;
     });
   }
 
@@ -35,7 +41,7 @@ export class DetailReceivedComponent implements OnInit,OnChanges {
     this.isVisible = false;
   }
 
-  openModal(){
+  openModal() {
     this.isVisible = true;
   }
 
@@ -48,20 +54,22 @@ export class DetailReceivedComponent implements OnInit,OnChanges {
     this.closeDrawer.emit(false);
   }
 
-  handleSubmit(){
+  handleSubmit() {
     this.isOkLoading = true;
-    this.receivedService.updateReceived(this.cartSelected.id_cart,{
-      ...this.cartSelected,status:this.cartSelected.status === 0 ? 1 : 0
-    }).subscribe(res =>{
-      if(res.status === 200){
-        this.isOkLoading = false;
+    this.receivedService.updateReceived(this.cartSelected.id_cart).subscribe(res => {
+      this.isOkLoading = false;
+      if (res.status === 200) {
         this.isVisible = !this.isVisible;
         this.refreshData.emit();
-        if(this.cartSelected.status === 0){
+        if (this.cartSelected.status === 0) {
+          createMessage(this.msg, "success", 'Xác nhận đơn hàng');
           this.cartSelected.status = 1;
-        }else {
+        } else {
+          createMessage(this.msg, "success", 'Huỷ đơn hàng');
           this.cartSelected.status = 0;
         }
+      } else {
+        createMessage(this.msg, "error", 'Xác nhận đơn hàng');
       }
     })
   }

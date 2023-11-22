@@ -38,8 +38,11 @@ import { DetailReceivedComponent } from "./received/detail-received/detail-recei
 import { HttpInterceptorService } from "../../_sevices/auth/http-interceptor.service";
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import {en_US, NZ_I18N} from "ng-zorro-antd/i18n";
+import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import { SaleComponent } from './sale/sale.component';
+import { AddDiscountComponent } from './sale/add-discount/add-discount.component';
 registerLocaleData(en);
 
 @NgModule({
@@ -69,7 +72,8 @@ registerLocaleData(en);
     NgChartsModule,
     NzToolTipModule,
     NzIconModule,
-    NzDropDownModule
+    NzDropDownModule,
+    NzProgressModule
   ],
   declarations: [WelcomeComponent,
     StatisticalComponent,
@@ -78,7 +82,7 @@ registerLocaleData(en);
     ProductComponent,
     AddProductComponent,
     DetailProductComponent,
-    ReceivedComponent,LoadingComponent,DetailReceivedComponent],
+    ReceivedComponent,LoadingComponent,DetailReceivedComponent, SaleComponent, AddDiscountComponent],
   exports: [WelcomeComponent],
   providers: [
     { provide: NZ_I18N, useValue: en_US }

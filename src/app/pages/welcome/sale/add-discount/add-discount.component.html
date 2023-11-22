@@ -1,0 +1,22 @@
+<nz-drawer
+  [nzClosable]="false"
+  [nzVisible]="visible"
+  nzPlacement="right"
+  nzTitle="Thêm mã giảm giá"
+  (nzOnClose)="close()"
+>
+  <ng-container *nzDrawerContent>
+    <div class="row">
+      <label for="code">Mã giảm giá</label>
+      <input type="text" id="code" nz-input [(ngModel)]="code">
+      <span nz-icon nzType="retweet" nzTheme="outline" class="icon-random" nz-popover nzPopoverContent="Mã ngẫu nhiên" (click)="handleRandomCode()"></span>
+    </div>
+    <div class="row">
+      <label for="discount">Giảm giá(%)</label>
+      <input type="text" id="discount" nz-input [(ngModel)]="discount">
+    </div>
+    <div class="action">
+      <button class="btn-add" (click)="handleAddDiscount()">Thêm</button>
+    </div>
+  </ng-container>
+</nz-drawer>
