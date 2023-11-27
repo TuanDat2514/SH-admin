@@ -7,7 +7,7 @@ import {storage} from "../../../../../firebase/firebaseConfig";
 import {createMessage, genRandonString} from "../../../../../environments/helper";
 import {categoryProduct, optionBrand} from "../../../../../environments/constant";
 import {Product} from "../../../../../assets/interface/interface";
-
+import { DomSanitizer } from "@angular/platform-browser";
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -23,9 +23,11 @@ export class AddProductComponent implements OnInit, OnDestroy, OnChanges {
     {progress: 0},
     {progress: 0},
     {progress: 0},
+    {progress: 0},
   ];
   file: any = [];
   imgNew = [
+    {img: ''},
     {img: ''},
     {img: ''},
     {img: ''},
@@ -39,6 +41,7 @@ export class AddProductComponent implements OnInit, OnDestroy, OnChanges {
     price: [''],
     description: [''],
     img: [''],
+    sub_img:[''],
     sub_img1: [''],
     sub_img2: [''],
     sub_img3: [''],
@@ -47,7 +50,11 @@ export class AddProductComponent implements OnInit, OnDestroy, OnChanges {
   categoryProduct = categoryProduct;
   isLoadingImage: boolean = false;
 
-  constructor(private msg: NzMessageService, private fb: FormBuilder, private productService: ProductService) {
+  constructor(private msg: NzMessageService, 
+    private fb: FormBuilder, 
+    private productService: ProductService,
+    private sanitizer: DomSanitizer
+    ) {
   }
 
   ngOnInit(): void {
@@ -69,14 +76,16 @@ export class AddProductComponent implements OnInit, OnDestroy, OnChanges {
       this.newForm.controls.description.setValue(selectedProduct.description);
       this.newForm.controls.id_product.setValue(selectedProduct.id_product);
       this.newForm.controls.img.setValue(selectedProduct.img);
+      this.newForm.controls.sub_img.setValue(selectedProduct.img);
       this.newForm.controls.sub_img1.setValue(selectedProduct.img);
       this.newForm.controls.sub_img2.setValue(selectedProduct.img);
       this.newForm.controls.sub_img3.setValue(selectedProduct.img);
       // this.newForm.setValue(selectedProduct);
       this.imgNew[0].img = selectedProduct.img;
-      this.imgNew[1].img = selectedProduct.sub_img1;
-      this.imgNew[2].img = selectedProduct.sub_img2;
-      this.imgNew[3].img = selectedProduct.sub_img3;
+      this.imgNew[1].img = selectedProduct.sub_img;
+      this.imgNew[2].img = selectedProduct.sub_img1;
+      this.imgNew[3].img = selectedProduct.sub_img2;
+      this.imgNew[4].img = selectedProduct.sub_img3;
       this.progress.forEach(value => value.progress++)
     }
     console.log(this.progress);
@@ -136,21 +145,25 @@ export class AddProductComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngSubmit() {
-    this.newForm.controls.img.setValue(this.imgNew[0].img);
-    this.newForm.controls.sub_img1.setValue(this.imgNew[1].img);
-    this.newForm.controls.sub_img2.setValue(this.imgNew[2].img);
-    this.newForm.controls.sub_img3.setValue(this.imgNew[3].img);
+    /* this.newForm.controls.img.setValue(this.imgNew[0].img);
+    this.newForm.controls.sub_img.setValue(this.imgNew[1].img);
+    this.newForm.controls.sub_img1.setValue(this.imgNew[2].img);
+    this.newForm.controls.sub_img2.setValue(this.imgNew[3].img);
+    this.newForm.controls.sub_img3.setValue(this.imgNew[4].img);
     // this.newForm.value.img = this.imgNew;
     if (!this.newForm.controls.id_product.value) {
       this.newForm.controls.id_product.setValue(genRandonString(4));
-    }
+    } 
     this.productService.addProduct(this.newForm.value).subscribe(res => {
       if (res.status === 200) {
         createMessage(this.msg, 'success', 'Thêm mới');
         this.refreshData.emit();
         this.closeDrawer.emit(false);
       }
-    })
+    }) */
+    // @ts-ignore
+    console.log(this.sanitizer.bypassSecurityTrustHtml(this.newForm.controls.description.value as string)['changingThisBreaksApplicationSecurity']);
+    
   }
 
 

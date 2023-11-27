@@ -16,6 +16,7 @@ export interface Product{
   price:number,
   description:string,
   img:string,
+  sub_img:string,
   sub_img1:string
   sub_img2:string
   sub_img3:string

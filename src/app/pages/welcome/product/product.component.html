@@ -46,7 +46,7 @@
   <tr *ngFor="let data of editRowTable.data">
     <ng-container *ngIf="!editCache[data.id_product].edit; else editTemplate">
       <td nzAlign="center">
-        <img [src]="data.img" alt="" style="width: 80px;height: 111px;object-fit: contain;">
+        <img [src]="data.img" alt="" style="width: 80px;height: 80px;object-fit: cover;">
       </td>
       <td nzAlign="center" (click)="handleRecord(data)">{{ data.id_product }}</td>
       <td nzAlign="center" (click)="handleRecord(data)">{{ data.name }}</td>
