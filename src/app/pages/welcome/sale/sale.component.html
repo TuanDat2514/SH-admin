@@ -40,6 +40,8 @@
   (nzOnCancel)="handleCancel()"
   (nzOnOk)="handleOk()"
   [nzOkLoading]="isOkLoading"
+  nzCancelText="Hủy"
+  nzOkText="OK"
 >
   <p *nzModalContent>{{selected.status === 0 ? "Bạn muốn chạy mã giảm giá này?" : "Bạn muốn dừng mã giảm giá này?"}}</p>
 </nz-modal>

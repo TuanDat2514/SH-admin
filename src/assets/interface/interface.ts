@@ -85,4 +85,8 @@ export interface LoginResponse{
 export interface Report{
   revenue: number,
   order: number
+  orderConfirm:number,
+  orderUnconfimred:number,
+  reportIncomeMonth:number[],
+  reportOrderMonth:number[]
 }

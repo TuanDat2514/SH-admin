@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BDiscount, DiscountService} from "../../../../_sevices/discount/discount.service";
 import {createMessage, genRandomCode} from "../../../../../environments/helper";
 import {NzMessageService} from "ng-zorro-antd/message";
@@ -10,7 +10,6 @@ import {NzMessageService} from "ng-zorro-antd/message";
 })
 export class AddDiscountComponent implements OnInit {
   @Input() visible : boolean = false;
-
   @Output() closeDrawer = new EventEmitter(false);
   @Output() refresh = new EventEmitter();
 

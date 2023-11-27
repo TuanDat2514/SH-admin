@@ -7,9 +7,17 @@
     <label>Số đơn hàng</label>
     <p>{{report.order}}</p>
   </div>
+  <div class="block order-Confirm">
+    <label>Đã xác nhận</label>
+    <p>{{report.orderConfirm}}</p>
+  </div>
+  <div class="block order-Unconfirmed">
+    <label>Chưa xác nhận</label>
+    <p>{{report.orderUnconfimred}}</p>
+  </div>
 </div>
 <div class="chart">
-  <canvas baseChart class="chart"
+  <canvas baseChart class="chart1"
         [data]="barChartData"
         [options]="barChartOptions"
         [plugins]="barChartPlugins"

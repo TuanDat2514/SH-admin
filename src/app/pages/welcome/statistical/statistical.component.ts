@@ -15,10 +15,11 @@ export class StatisticalComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   report!: Report;
   public barChartOptions: ChartConfiguration['options'] = {
+
     responsive: true,
     elements: {
       line: {
-        tension: 0.2
+        tension: 0.4
       }
     },
     // We use these empty structures as placeholders for dynamic theming.
@@ -44,26 +45,22 @@ export class StatisticalComponent implements OnInit {
     plugins: {
       legend: {
         display: true,
+        align:"end",
       },
       datalabels: {
         anchor: 'end',
-        align: 'end'
+        align: 'end',
+        display: false,
       }
     }
 
   };
-  public barChartType: any = 'line';
+  public barChartType: any = 'bar';
   public barChartPlugins = [
     DataLabelsPlugin
   ];
 
-  public barChartData: ChartData<'bar'> = {
-    labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013'],
-    datasets: [
-      { data: [65, 59, 80, 81, 56, 55, 40, 44], label: 'Doanh thu' },
-      { data: [100, 150, 120, 200, 180, 300, 500, 350], label: 'Số đơn hàng', yAxisID: "y1" },
-    ]
-  };
+  public barChartData!: ChartData<'bar'>;
 
   constructor(private statisticalService: StatisticalService) {
     document.title = "Doanh thu";
@@ -72,6 +69,13 @@ export class StatisticalComponent implements OnInit {
   ngOnInit(): void {
     this.statisticalService.getStatistical().subscribe(res => {
       this.report = res;
+      this.barChartData = {
+        labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],
+        datasets: [
+          { data: res.reportIncomeMonth, label: 'Doanh thu' },
+          { data: res.reportOrderMonth, label: 'Số đơn hàng', yAxisID: "y1" },
+        ]
+      }
     })
   }
 
