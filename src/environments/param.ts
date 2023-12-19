@@ -32,5 +32,7 @@ export const PARAM = {
   GET_ALL_BRAND:"brand/all",
 
   //report
-  GET_REPORT_ALL:"report/statistical"
+  GET_REPORT_ALL:"report/statistical",
+
+
 }

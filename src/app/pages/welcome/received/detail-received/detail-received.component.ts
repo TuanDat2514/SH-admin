@@ -54,9 +54,9 @@ export class DetailReceivedComponent implements OnInit, OnChanges {
     this.closeDrawer.emit(false);
   }
 
-  handleSubmit() {
+  handleSubmit(status:number) {
     this.isOkLoading = true;
-    this.receivedService.updateReceived(this.cartSelected.id_cart).subscribe(res => {
+    this.receivedService.updateReceived(this.cartSelected.id_cart,status).subscribe(res => {
       this.isOkLoading = false;
       if (res.status === 200) {
         this.isVisible = !this.isVisible;

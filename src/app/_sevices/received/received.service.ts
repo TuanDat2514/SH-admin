@@ -13,8 +13,8 @@ export class ReceivedService {
   getListReceived(){
     return this.http.get<Array<Received>>(`${URL_ROOT}/${PARAM.GET_LIST_RECEIVED}`);
   }
-  updateReceived(id:number){
-    return this.http.put(`${URL_ROOT}/${PARAM.UPDATE_RECEIVED}?id_cart=${id}`,undefined,{observe:"response"});
+  updateReceived(id:number,status:number){
+    return this.http.put(`${URL_ROOT}/${PARAM.UPDATE_RECEIVED}?id_cart=${id}&status=${status}`,undefined,{observe:"response"});
   }
 
   getDetailShipping(cart_id:number){

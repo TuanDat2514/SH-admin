@@ -1,19 +1,27 @@
 <div class="report">
   <div class="block revenue">
     <label>Doanh thu</label>
-    <p>{{report.revenue * 1000| currency:'VND':' ':'1.'}}</p>
+    <p>{{report && report.revenue * 1000| currency:'VND':' ':'1.'}}</p>
   </div>
   <div class="block order">
     <label>Số đơn hàng</label>
-    <p>{{report.order}}</p>
+    <p>{{report?.order}}</p>
   </div>
   <div class="block order-Confirm">
     <label>Đã xác nhận</label>
-    <p>{{report.orderConfirm}}</p>
+    <p>{{report?.orderConfirm}}</p>
   </div>
   <div class="block order-Unconfirmed">
     <label>Chưa xác nhận</label>
-    <p>{{report.orderUnconfimred}}</p>
+    <p>{{report?.orderUnconfimred}}</p>
+  </div>
+  <div class="block order-Unconfirmed">
+    <label>Đã hủy</label>
+    <p>{{report?.orderCancelled}}</p>
+  </div>
+  <div class="block order-Unconfirmed">
+    <label>Đã giao</label>
+    <p>{{report?.orderDelivered}}</p>
   </div>
 </div>
 <div class="chart">

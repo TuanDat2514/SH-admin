@@ -25,11 +25,13 @@
       <td nzAlign="center">{{ data.id_user }}</td>
       <td nzAlign="center">{{ data.date |date:'dd/MM/yyyy HH:mm:ss' }}</td>
       <td nzAlign="center">{{ data.subtotal * 1000| currency:'VND':' ':'1.'}}</td>
-      <td nzAlign="center">{{ data.discount}}</td>
+      <td nzAlign="center">{{ data.discount.discount}}</td>
       <td nzAlign="center">{{ data.total * 1000| currency:'VND':' ':'1.'}}</td>
       <td nzAlign="center">
         <nz-tag [nzColor]="'error'" *ngIf="data.status === 0">Chưa xác nhận</nz-tag>
-        <nz-tag [nzColor]="'success'" *ngIf="data.status === 1">Đã xác nhận</nz-tag>
+        <nz-tag [nzColor]="'blue'" *ngIf="data.status === 1">Đã xác nhận</nz-tag>
+        <nz-tag [nzColor]="'magenta'" *ngIf="data.status === 2">Đã huỷ</nz-tag>
+        <nz-tag [nzColor]="'success'" *ngIf="data.status === 3">Đã giao</nz-tag>
       </td>
       <!--<td>
         <button nz-button nzType="primary" nzDanger>Primary</button>

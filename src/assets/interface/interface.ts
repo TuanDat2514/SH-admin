@@ -3,7 +3,7 @@ export interface Received{
   id_user: number,
   date: string,
   subtotal: number,
-  discount: number,
+  discount: any,
   total: number,
   status: number
 }
@@ -86,6 +86,8 @@ export interface LoginResponse{
 export interface Report{
   revenue: number,
   order: number
+  orderCancelled:number,
+  orderDelivered:number,
   orderConfirm:number,
   orderUnconfimred:number,
   reportIncomeMonth:number[],

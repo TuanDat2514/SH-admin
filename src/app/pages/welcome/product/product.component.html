@@ -44,13 +44,13 @@
   </thead>
   <tbody>
   <tr *ngFor="let data of editRowTable.data">
-    <ng-container *ngIf="!editCache[data.id_product].edit; else editTemplate">
+    <ng-container *ngIf="!editCache[data.id_product].edit">
       <td nzAlign="center">
         <img [src]="data.img" alt="" style="width: 80px;height: 80px;object-fit: cover;">
       </td>
       <td nzAlign="center" (click)="handleRecord(data)">{{ data.id_product }}</td>
       <td nzAlign="center" (click)="handleRecord(data)">{{ data.name }}</td>
-      <td nzAlign="center" class="td-description" (click)="handleRecord(data)">{{ data.description }}</td>
+      <td nzAlign="center" class="td-description" (click)="handleRecord(data)" >{{ data.description }}</td>
       <td nzAlign="center" (click)="handleRecord(data)">{{ data.price * 1000| currency:'VND':' ':'1.'}}</td>
       <td nzAlign="center" class="action">
         <!--<button nz-button nzType="primary" (click)="startEdit(data.id_product,data)" nzShape="circle"><span nz-icon
@@ -61,7 +61,7 @@
                                                                                                     nzType="delete"></span></a>
       </td>
     </ng-container>
-    <ng-template #editTemplate>
+    <!-- <ng-template #editTemplate>
       <td nzAlign="center"><input type="file" nz-input [(ngModel)]="editCache[data.id_product].data.img"
                                   (change)="chooseFile($event)"/></td>
       <td nzAlign="center"><input type="text" nz-input [(ngModel)]="editCache[data.id_product].data.id_product"/></td>
@@ -74,7 +74,7 @@
         <a nz-popconfirm nzPopconfirmTitle="Trở lại?" (nzOnConfirm)="cancelEdit(data.id_product)" nzShape="circle"
            nz-button nzType="primary" nzDanger nzOkText="OK" nzCancelText="Hủy"><span nz-icon nzType="close"></span></a>
       </td>
-    </ng-template>
+    </ng-template> -->
   </tr>
   </tbody>
 </nz-table>

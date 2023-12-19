@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
-import {NzMessageService} from "ng-zorro-antd/message";
-import {FormBuilder} from "@angular/forms";
-import {ProductService} from "../../../../_sevices/product/product.service";
-import {getDownloadURL, ref, uploadBytesResumable} from "firebase/storage";
-import {storage} from "../../../../../firebase/firebaseConfig";
-import {createMessage, genRandonString} from "../../../../../environments/helper";
-import {categoryProduct, optionBrand} from "../../../../../environments/constant";
-import {Product} from "../../../../../assets/interface/interface";
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { NzMessageService } from "ng-zorro-antd/message";
+import { FormBuilder } from "@angular/forms";
+import { ProductService } from "../../../../_sevices/product/product.service";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { storage } from "../../../../../firebase/firebaseConfig";
+import { createMessage, genRandonString } from "../../../../../environments/helper";
+import { categoryProduct, optionBrand } from "../../../../../environments/constant";
+import { Product } from "../../../../../assets/interface/interface";
 import { DomSanitizer } from "@angular/platform-browser";
 @Component({
   selector: 'app-add-product',
@@ -19,19 +19,19 @@ export class AddProductComponent implements OnInit, OnDestroy, OnChanges {
   @Output() closeDrawer = new EventEmitter();
   loading = false;
   progress = [
-    {progress: 0},
-    {progress: 0},
-    {progress: 0},
-    {progress: 0},
-    {progress: 0},
+    { progress: 0 },
+    { progress: 0 },
+    { progress: 0 },
+    { progress: 0 },
+    { progress: 0 },
   ];
   file: any = [];
   imgNew = [
-    {img: ''},
-    {img: ''},
-    {img: ''},
-    {img: ''},
-    {img: ''},
+    { img: '' },
+    { img: '' },
+    { img: '' },
+    { img: '' },
+    { img: '' },
   ];
   newForm = this.fb.group({
     id_product: [''],
@@ -41,7 +41,7 @@ export class AddProductComponent implements OnInit, OnDestroy, OnChanges {
     price: [''],
     description: [''],
     img: [''],
-    sub_img:[''],
+    sub_img: [''],
     sub_img1: [''],
     sub_img2: [''],
     sub_img3: [''],
@@ -50,11 +50,11 @@ export class AddProductComponent implements OnInit, OnDestroy, OnChanges {
   categoryProduct = categoryProduct;
   isLoadingImage: boolean = false;
 
-  constructor(private msg: NzMessageService, 
-    private fb: FormBuilder, 
+  constructor(private msg: NzMessageService,
+    private fb: FormBuilder,
     private productService: ProductService,
     private sanitizer: DomSanitizer
-    ) {
+  ) {
   }
 
   ngOnInit(): void {
@@ -73,7 +73,16 @@ export class AddProductComponent implements OnInit, OnDestroy, OnChanges {
       this.newForm.controls.price.setValue(selectedProduct.price + '');
       this.newForm.controls.name.setValue(selectedProduct.name);
       this.newForm.controls.type.setValue(selectedProduct.type);
-      this.newForm.controls.description.setValue(selectedProduct.description);
+      let arr = selectedProduct.description?.split('<br>');
+      let str: any = null
+      arr?.forEach((value, index) => {
+        if (index == 0) {
+          str = value
+        } else {
+          str = str + '\n' + value;
+        }
+      })
+      this.newForm.controls.description.setValue(str);
       this.newForm.controls.id_product.setValue(selectedProduct.id_product);
       this.newForm.controls.img.setValue(selectedProduct.img);
       this.newForm.controls.sub_img.setValue(selectedProduct.img);
@@ -145,26 +154,32 @@ export class AddProductComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngSubmit() {
-    /* this.newForm.controls.img.setValue(this.imgNew[0].img);
+    this.newForm.controls.img.setValue(this.imgNew[0].img);
     this.newForm.controls.sub_img.setValue(this.imgNew[1].img);
     this.newForm.controls.sub_img1.setValue(this.imgNew[2].img);
     this.newForm.controls.sub_img2.setValue(this.imgNew[3].img);
     this.newForm.controls.sub_img3.setValue(this.imgNew[4].img);
     // this.newForm.value.img = this.imgNew;
+    let arr = this.newForm.controls.description.value?.split('\n');
+    let str = ''
+    arr?.forEach((value,index) => {
+      if (index == 0) {
+        str = value
+      } else {
+        str = str + '<br>' + value;
+      }
+    })
+    this.newForm.controls.description.setValue(str);
     if (!this.newForm.controls.id_product.value) {
       this.newForm.controls.id_product.setValue(genRandonString(4));
-    } 
+    }
     this.productService.addProduct(this.newForm.value).subscribe(res => {
       if (res.status === 200) {
         createMessage(this.msg, 'success', 'Thêm mới');
         this.refreshData.emit();
         this.closeDrawer.emit(false);
       }
-    }) */
-    // @ts-ignore
-    console.log(this.sanitizer.bypassSecurityTrustHtml(this.newForm.controls.description.value as string)['changingThisBreaksApplicationSecurity']);
-    
+    })
   }
-
 
 }

@@ -153,6 +153,7 @@ export class ProductComponent implements OnInit {
           price: res[i].price,
           description: res[i].description,
           img: res[i].img,
+          sub_img:res[i].sub_img,
           sub_img1: res[i].sub_img1,
           sub_img2: res[i].sub_img2,
           sub_img3: res[i].sub_img3,
