@@ -1,14 +1,14 @@
 <h1>Danh sách mã giảm giá</h1>
 <div class="btn-action">
   <nz-input-group [nzPrefix]="suffixIconSearch" style="width: 200px">
-    <input type="text" nz-input placeholder="Tìm kiếm sản phẩm"/>
+    <input type="text" nz-input placeholder="Tìm kiếm"/>
   </nz-input-group>
   <ng-template #suffixIconSearch>
     <span nz-icon nzType="search"></span>
   </ng-template>
   <button nz-button nzType="primary" (click)="handleAddDiscount()">
     <span nz-icon nzType="plus" nzTheme="outline"></span>
-    Thêm sản phẩm
+    Thêm mã giảm giá
   </button>
 </div>
 <nz-table #sortTable [nzData]="listOfData" nzTableLayout="fixed">
@@ -29,7 +29,7 @@
       <nz-tag [nzColor]="'success'" *ngIf="data.status === 1">Đang hoạt động</nz-tag>
     </td>
     <td nzAlign="center">
-      <a nz-popconfirm nzPopconfirmTitle="Bạn chắc chắn xóa?" nz-button nzType="primary" nzShape="circle" nzDanger (nzOnConfirm)="handleDelete(data.id)"><span nz-icon nzType="delete" ></span></a>
+      <a nz-popconfirm nzPopconfirmTitle="Bạn chắc chắn xóa?" nz-button nzType="primary" nzShape="circle" nzDanger (nzOnConfirm)="handleDelete(data.id)" nzOkText="OK" nzCancelText="Hủy bỏ"><span nz-icon nzType="delete" ></span></a>
     </td>
   </tr>
   </tbody>

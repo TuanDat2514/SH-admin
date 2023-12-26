@@ -175,10 +175,11 @@ export class AddProductComponent implements OnInit, OnDestroy, OnChanges {
     }
     this.productService.addProduct(this.newForm.value).subscribe(res => {
       if (res.status === 200) {
-        createMessage(this.msg, 'success', 'Thêm mới');
+        createMessage(this.msg, 'success', this.selectedProduct ? 'Cập nhật' : 'Thêm mới');
         this.refreshData.emit();
         this.closeDrawer.emit(false);
-      }
+      }else{
+      }createMessage(this.msg, 'error', this.selectedProduct ? 'Cập nhật' : 'Thêm mới');
     })
   }
 

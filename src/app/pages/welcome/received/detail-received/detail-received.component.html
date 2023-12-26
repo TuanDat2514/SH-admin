@@ -53,8 +53,10 @@
   </ng-container>
 </nz-drawer>
 <ng-template #footer>
-
-  <button class="btn-submit" (click)="openModal()" >{{cartSelected?.status === 0 ? "Xác nhận" : "Hủy đơn hàng"}}</button>
+  <div class="btn-footer">
+    <button class="btn-submit btn-cancel" *ngIf="cartSelected?.status === 0" (click)="openModal(2)" >Hủy đơn hàng</button>
+    <button class="btn-submit" (click)="openModal(cartSelected?.status === 0 ? 1 : 0)" >{{cartSelected?.status === 0 ? "Xác nhận" : "Hủy đơn hàng"}}</button>
+  </div>
 </ng-template>
 <ng-template #header>
   <p style="font-size: 24px">Chi tiết đơn hàng</p>
@@ -63,10 +65,19 @@
   [(nzVisible)]="isVisible"
   nzTitle="Thông báo"
   (nzOnCancel)="handleCancel()"
-  (nzOnOk)="handleSubmit(1)"
+  (nzOnOk)="handleSubmit(status)"
   [nzOkLoading]="isOkLoading"
   nzOkText="OK"
   nzCancelText="Hủy bỏ"
 >
-  <p *nzModalContent>{{cartSelected.status === 0 ? "Bạn chắc chắn xác nhận đơn hàng này?":"Bạn chắc chắn hủy đơn hàng này?"}}</p>
+  <div *nzModalContent>
+    <div [ngSwitch]="status">
+      <div *ngSwitchCase="2">Bạn chắc chắn hủy đơn hàng này?</div>
+      <div *ngSwitchDefault>
+        <p>
+          {{cartSelected.status === 0 ? "Bạn chắc chắn xác nhận đơn hàng này?":"Bạn chắc chắn hủy đơn hàng này?"}}
+        </p>
+      </div>
+    </div>
+  </div>
 </nz-modal>

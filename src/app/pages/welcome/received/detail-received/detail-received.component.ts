@@ -18,7 +18,7 @@ export class DetailReceivedComponent implements OnInit, OnChanges {
   isVisible: any = false;
   isOkLoading = false;
   isLoading!: boolean;
-
+  status!:number;
   constructor(private receivedService: ReceivedService,
               private msg: NzMessageService
   ) {
@@ -41,8 +41,9 @@ export class DetailReceivedComponent implements OnInit, OnChanges {
     this.isVisible = false;
   }
 
-  openModal() {
+  openModal(status:number) {
     this.isVisible = true;
+    this.status= status;
   }
 
   open(): void {
