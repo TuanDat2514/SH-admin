@@ -5,6 +5,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 import { StatisticalService } from "../../../_sevices/statistical/statistical.service";
 import { Report } from "../../../../assets/interface/interface";
+import { LoadingService } from 'src/app/_sevices/loading/loading.service';
 
 @Component({
   selector: 'app-statistical',
@@ -14,6 +15,7 @@ import { Report } from "../../../../assets/interface/interface";
 export class StatisticalComponent implements OnInit {
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
   report!: Report;
+  isLoading= false;
   public barChartOptions: ChartConfiguration['options'] = {
 
     responsive: true,
@@ -51,7 +53,7 @@ export class StatisticalComponent implements OnInit {
         anchor: 'end',
         align: 'end',
         display: false,
-      }
+      },
     }
 
   };
@@ -62,12 +64,14 @@ export class StatisticalComponent implements OnInit {
 
   public barChartData!: ChartData<'bar'>;
 
-  constructor(private statisticalService: StatisticalService) {
+  constructor(private statisticalService: StatisticalService,private loadingService:LoadingService) {
     document.title = "Doanh thu";
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.statisticalService.getStatistical().subscribe(res => {
+      this.isLoading = false;
       this.report = res;
       this.barChartData = {
         labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],

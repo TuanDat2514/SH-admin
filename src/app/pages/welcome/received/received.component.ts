@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Received } from "../../../../assets/interface/interface";
 import { ReceivedService } from "../../../_sevices/received/received.service";
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { createMessage } from 'src/environments/helper';
 
 @Component({
   selector: 'app-received',
@@ -54,6 +56,9 @@ export class ReceivedComponent implements OnInit {
   itemSelected!:Received;
   isLoading!:boolean;
   inputValue:any;
+  constructor(private receivedService:ReceivedService,private message:NzMessageService) {
+    document.title = "Đơn hàng";
+  }
   handleOk(): void {
     this.isOkLoading = true;
 
@@ -62,31 +67,29 @@ export class ReceivedComponent implements OnInit {
     this.receivedService.getReceivedById(this.inputValue).subscribe(res=>{
       this.listOfData = [];
       this.listOfData.push(res.cart);
+      if (!res.cart) {
+        createMessage(this.message, 'message', "Không có đơn hàng này")
+      }
     })
   }
   handleCancel(event:any): void {
     this.isVisible = event;
   }
 
-  constructor(private receivedService:ReceivedService) {
-    document.title = "Đơn hàng";
-  }
 
   handleClickRecord(record: Received) {
     this.isVisible = true;
     this.itemSelected = record;
   }
   displayData(){
-    this.receivedService.getListReceived().subscribe(res =>{
-      this.listOfData = res;
-    })
-  }
-  ngOnInit(): void {
     this.isLoading = true;
     this.receivedService.getListReceived().subscribe(res =>{
       this.isLoading = false;
-      this.listOfData = res;
+      this.listOfData = res.reverse();
     })
+  }
+  ngOnInit(): void {
+    this.displayData()
   }
 
 }

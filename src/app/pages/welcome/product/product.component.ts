@@ -1,12 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductService } from "../../../_sevices/product/product.service";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { Product } from "../../../../assets/interface/interface";
-import {debounceTime, distinctUntilChanged, Subject} from "rxjs";
+import { debounceTime, distinctUntilChanged, Subject } from "rxjs";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { storage } from "../../../../firebase/firebaseConfig";
 import { createMessage } from "../../../../environments/helper";
-import {optionBrand} from "../../../../environments/constant";
+import { optionBrand } from "../../../../environments/constant";
 
 @Component({
   selector: 'app-product',
@@ -15,13 +15,13 @@ import {optionBrand} from "../../../../environments/constant";
 })
 export class ProductComponent implements OnInit {
 
-  constructor(private productService: ProductService,private message: NzMessageService) {
+  constructor(private productService: ProductService, private message: NzMessageService) {
     this.valueSearchInputUpdate.pipe(
       debounceTime(400),
       distinctUntilChanged())
       .subscribe(value => {
-        this.productService.searchProduct(value as string).subscribe((res:any) => {
-          this.listOfData= res;
+        this.productService.searchProduct(value as string).subscribe((res: any) => {
+          this.listOfData = res;
         })
       });
   }
@@ -33,16 +33,16 @@ export class ProductComponent implements OnInit {
   itemSelected!: Product;
   file: any = {};
   imgNew!: string | null;
-  descriptionNew!:string;
-  openDrawerDetail!:boolean;
-  productSelected:any;
-  openDrawerAddProduct:boolean = false;
-  isUploading:boolean = false;
-  progress!:number;
+  descriptionNew!: string;
+  openDrawerDetail!: boolean;
+  productSelected: any;
+  openDrawerAddProduct: boolean = false;
+  isUploading: boolean = false;
+  progress!: number;
   valueSearchInput: string = '';
   valueSearchInputUpdate = new Subject<string>();
-  isLoading:boolean = false;
-  searchBrandSelected:string = "Nhãn hiệu";
+  isLoading: boolean = false;
+  searchBrandSelected: string = "Nhãn hiệu";
   valueBrandSelected = "";
   optionBrand = optionBrand;
   chooseFile(event: any) {
@@ -82,16 +82,16 @@ export class ProductComponent implements OnInit {
           console.log('File available at', downloadURL);
           this.imgNew = downloadURL;
           this.isUploading = false;
-          createMessage(this.message,'success','Tải ảnh');
+          createMessage(this.message, 'success', 'Tải ảnh');
         });
       }
     );
   }
 
-  deleteProduct(id_product:string){
-    this.productService.deleteProduct(id_product).subscribe(res=>{
-      if(res.status === 200){
-        createMessage(this.message,'success','Xóa');
+  deleteProduct(id_product: string) {
+    this.productService.deleteProduct(id_product).subscribe(res => {
+      if (res.status === 200) {
+        createMessage(this.message, 'success', 'Xóa');
         this.displayData();
       }
     })
@@ -114,19 +114,19 @@ export class ProductComponent implements OnInit {
   saveEdit(id: string): void {
     const index = this.listOfData.findIndex(item => item.id_product === id);
     Object.assign(this.listOfData[index], this.editCache[id].data);
-    const body:any = {
+    const body: any = {
       description: this.editCache[id].data.description,
       id_product: this.editCache[id].data.id_product,
       img: this.imgNew || null,
       name: this.editCache[id].data.name,
       price: this.editCache[id].data.price,
     }
-    this.productService.updateProduct(body).subscribe(res=>{
-      if(res.status === 200){
+    this.productService.updateProduct(body).subscribe(res => {
+      if (res.status === 200) {
         this.editCache[id].edit = false;
         this.displayData();
         this.imgNew = null;
-        createMessage(this.message,'success','Cập nhật');
+        createMessage(this.message, 'success', 'Cập nhật');
       }
     })
     console.log(body);
@@ -141,7 +141,7 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  displayData(){
+  displayData() {
     this.isLoading = true
     this.productService.getAllProduct().subscribe(res => {
       this.totalItem = res.length;
@@ -153,12 +153,12 @@ export class ProductComponent implements OnInit {
           price: res[i].price,
           description: res[i].description,
           img: res[i].img,
-          sub_img:res[i].sub_img,
+          sub_img: res[i].sub_img,
           sub_img1: res[i].sub_img1,
           sub_img2: res[i].sub_img2,
           sub_img3: res[i].sub_img3,
-          region:res[i].region,
-          type:res[i].type
+          region: res[i].region,
+          type: res[i].type
         });
       }
       this.listOfData = data;
@@ -172,7 +172,7 @@ export class ProductComponent implements OnInit {
     this.displayData();
   }
 
-  handleRecord(item : any) {
+  handleRecord(item: any) {
     //this.openDrawerDetail = true;
     this.productSelected = item;
     this.openDrawerAddProd();
@@ -183,26 +183,29 @@ export class ProductComponent implements OnInit {
     this.openDrawerAddProduct = $event;
   }
 
-  openDrawerAddProd(){
+  openDrawerAddProd() {
     this.openDrawerAddProduct = true;
   }
 
-  closeDrawerAddProd(){
+  closeDrawerAddProd() {
     this.openDrawerAddProduct = false;
     this.productSelected = '';
   }
 
-  changeSelectedBrand(brand:any){
+  changeSelectedBrand(brand: any) {
     this.searchBrandSelected = brand.label;
     this.valueBrandSelected = brand.value;
   }
 
-  searchProduct(){
+  searchProduct() {
     this.isLoading = true;
-    let body = {key:this.valueSearchInput,brand:this.valueBrandSelected};
-    this.productService.searchProduct(body).subscribe((res:any) => {
+    let body = { key: this.valueSearchInput, brand: this.valueBrandSelected };
+    this.productService.searchProduct(body).subscribe((res: any) => {
       this.isLoading = false
-      this.listOfData= res;
+      this.listOfData = res;
+      if (res.length === 0) {
+        createMessage(this.message, 'message', "Không có sản phẩm này")
+      }
     })
   }
 }

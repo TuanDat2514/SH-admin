@@ -179,7 +179,8 @@ export class AddProductComponent implements OnInit, OnDestroy, OnChanges {
         this.refreshData.emit();
         this.closeDrawer.emit(false);
       }else{
-      }createMessage(this.msg, 'error', this.selectedProduct ? 'Cập nhật' : 'Thêm mới');
+        createMessage(this.msg, 'error', this.selectedProduct ? 'Cập nhật' : 'Thêm mới');
+      }
     })
   }
 

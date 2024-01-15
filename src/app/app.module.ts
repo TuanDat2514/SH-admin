@@ -40,7 +40,6 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     LoginComponent,
-    LoadingGlobalComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,7 +5,7 @@ import { LoadingService } from "./_sevices/loading/loading.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent{
   isCollapsed = false;
   isLogin;
   isLoading! : boolean ;

@@ -31,4 +31,7 @@ export class DiscountService {
   deleteDiscount(id:number){
     return this.http.delete(`${URL_ROOT}/${PARAM.DELETE_DISCOUNT}?id=${id}`,{observe:"response"});
   }
+  searchDiscount(key:string):any{
+    return this.http.get(`${URL_ROOT}/${PARAM.SEARCH_DISCOUNT}?key=${key}`);
+  }
 }

@@ -1,7 +1,7 @@
 <h1>Danh sách mã giảm giá</h1>
 <div class="btn-action">
   <nz-input-group [nzPrefix]="suffixIconSearch" style="width: 200px">
-    <input type="text" nz-input placeholder="Tìm kiếm"/>
+    <input type="text" nz-input placeholder="ID Mã giảm giá" [(ngModel)]="key" (keydown.enter)="searchDiscount()"/>
   </nz-input-group>
   <ng-template #suffixIconSearch>
     <span nz-icon nzType="search"></span>
@@ -11,7 +11,7 @@
     Thêm mã giảm giá
   </button>
 </div>
-<nz-table #sortTable [nzData]="listOfData" nzTableLayout="fixed">
+<nz-table #sortTable [nzData]="listOfData" nzTableLayout="fixed" [nzLoading]="isLoading">
   <thead>
   <tr>
     <th nzAlign="center" *ngFor="let column of listOfColumn" [nzSortFn]="column.compare" [nzSortPriority]="column.priority">

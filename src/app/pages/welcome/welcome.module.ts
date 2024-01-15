@@ -43,6 +43,7 @@ import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { SaleComponent } from './sale/sale.component';
 import { AddDiscountComponent } from './sale/add-discount/add-discount.component';
+import { LoadingGlobalComponent } from 'src/app/loading-global/loading-global.component';
 registerLocaleData(en);
 
 @NgModule({

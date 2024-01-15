@@ -1,5 +1,5 @@
-export const URL_ROOT = "http://192.168.0.100:8080";
-//export const URL_ROOT = "http://localhost:8080";
+//export const URL_ROOT = "http://192.168.0.100:8080";
+export const URL_ROOT = "http://localhost:8080";
 export const PARAM = {
   //received
   GET_LIST_RECEIVED:"cart/getListCart",
@@ -21,7 +21,7 @@ export const PARAM = {
   UPDATE_DISCOUNT:"discount/updateDiscount",
   ADD_DISCOUNT:"discount/addDiscount",
   DELETE_DISCOUNT:"discount/deleteDiscount",
-
+  SEARCH_DISCOUNT:"discount/searchDiscount",
   //auth
   LOGIN:"auth/login",
 

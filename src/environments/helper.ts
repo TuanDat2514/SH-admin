@@ -2,6 +2,9 @@ import { NzMessageService } from "ng-zorro-antd/message";
 
 export function createMessage(msg: NzMessageService, type: string, str: string): void {
   switch (type) {
+    case 'message':
+      msg.create(type, `${str}`);
+      break
     case 'success':
       msg.create(type, `${str} thành công`);
       break
@@ -26,7 +29,7 @@ export function genRandonString(length: number) {
   return result;
 }
 export function genRandomCode(length: number) {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   let charLength = chars.length;
   let result = '';
   for (let i = 0; i < length; i++) {

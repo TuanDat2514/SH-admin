@@ -33,7 +33,7 @@ export class SaleComponent implements OnInit {
     },
   ];
   listOfData: Discount[] = [];
-
+  key!:string;
   constructor(private discountService: DiscountService,private message: NzMessageService) {
     document.title = "Khuyến mãi";
   }
@@ -42,7 +42,7 @@ export class SaleComponent implements OnInit {
   isOkLoading = false;
   selected!:Discount;
   isOpenDrawer = false;
-
+  isLoading = false;
   showModal(discount:Discount): void {
     this.isVisible = true;
     this.selected = discount;
@@ -69,7 +69,9 @@ export class SaleComponent implements OnInit {
   }
 
   displayData() {
+    this.isLoading = true
     this.discountService.getAllDiscount().subscribe(res => {
+      this.isLoading = false;
       this.listOfData = res;
     })
   }
@@ -90,6 +92,13 @@ export class SaleComponent implements OnInit {
       }else {
         createMessage(this.message,'error',"Xóa");
       }
+    })
+  }
+  searchDiscount(){
+    this.isLoading = true;
+    this.discountService.searchDiscount(this.key).subscribe((res:any) =>{
+      this.isLoading = false;
+      this.listOfData = res;
     })
   }
 }
